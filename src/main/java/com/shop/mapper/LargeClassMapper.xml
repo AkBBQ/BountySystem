@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mapper.LargeClassMapper">
+  <resultMap id="BaseResultMap" type="com.shop.model.LargeClass">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+  
+  <select id="queryAll" resultMap="BaseResultMap">
+       select * from large_class
+       </select>
+       
+       <select id="queryById" parameterType="Integer" resultMap="BaseResultMap">
+       select * from large_class where id=#{id}
+       </select>
+       
+       <insert id="add" parameterType="com.shop.model.LargeClass">
+       insert into large_class(lid,name) values(#{lid},#{name})
+       </insert>
+       
+       <delete id="del" parameterType="Integer">
+       delete from large_class where id=#{id}
+       </delete>
+       
+       <update id="update" parameterType="com.shop.model.LargeClass">
+          update large_class set  name=#{name} where id=#{id}
+       </update>
+</mapper>

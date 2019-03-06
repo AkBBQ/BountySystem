@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mapper.UsersMapper">
+  <resultMap id="BaseResultMap" type="com.shop.model.Users">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="realname" jdbcType="VARCHAR" property="realname" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="postcode" jdbcType="VARCHAR" property="postcode" />
+    <result column="phone" jdbcType="INTEGER" property="phone" />
+    <result column="type" jdbcType="CHAR" property="type" />
+    <result column="add_date" jdbcType="TIMESTAMP" property="addDate" />
+  </resultMap>
+
+  <select id="LoginQuery" parameterType="com.shop.model.Users" resultType="com.shop.model.Users"> 
+         select id,username,password,phone,address from users where username=#{username}
+  </select>
+  
+  <insert id="AddUsers" parameterType="com.shop.model.Users">
+             insert into users(username,password,phone,address,add_date) values(#{username},
+             #{password},#{phone},#{address},#{addDate})
+  </insert>
+  
+   <select id="queryAll" resultMap="BaseResultMap" >
+       select * from users
+   </select>
+
+</mapper>

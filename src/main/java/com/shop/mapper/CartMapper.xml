@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC   
+    "-//mybatis.org//DTD Mapper 3.0//EN"  
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+    
+    
+<mapper namespace="com.shop.mapper.CartMapper"> 
+
+  <resultMap id="getMap" type="com.shop.model.Cart">
+    <id column="id"  property="id" />
+    <result column="user_id" property="userId" />
+     <result column="book_id" property="bookId" />
+     <result column="num" property="num" />
+    <association property="book"  javaType="com.shop.model.Book">
+		    <id property="id"  column="id"/>
+		    <result property="name"  column="name"/>
+		    <result property="isbn"  column="isbn"/>
+		    <result property="price"  column="price"/>
+		    <result property="photo"  column="photo"/>
+		</association> 
+    
+  </resultMap> 
+
+	<insert id="add" parameterType="com.shop.model.Cart">
+	    insert into cart(user_id,book_id,num) values(#{userId},#{bookId},#{num})
+	</insert>
+     
+     
+     <delete id="del" parameterType="Integer">
+     delete from cart where id=#{id}
+     </delete>    
+     
+     <delete id="delAll" >
+     delete from cart 
+     </delete>    	
+     
+     <select id="queryAll" resultMap="getMap">
+         select  c.id,c.book_id,c.user_id,c.num,b.isbn,b.name,b.photo,b.price,b.now_price from cart c 
+          inner join book b on c.book_id=b.id 
+     </select>
+     
+     <select id="queryBookId" parameterType="Integer" resultType="com.shop.model.Cart">
+         select * from cart  where book_id=#{bookId}
+     </select>
+     
+     <update id="update" parameterType="com.shop.model.Cart">
+     update cart set num=#{num} where book_id=#{bookId}
+     </update>
+     
+      <select id="queryOneAll" parameterType="Integer" resultMap="getMap">
+         select  c.id,c.book_id,c.user_id,c.num,b.isbn,b.name,b.photo,b.price,b.now_price from cart c 
+          inner join book b on c.book_id=b.id where user_id=#{userId}
+     </select>
+</mapper>

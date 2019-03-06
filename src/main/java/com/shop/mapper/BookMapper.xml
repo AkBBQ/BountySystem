@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mapper.BookMapper">
+  <resultMap id="BaseResultMap" type="com.shop.model.Book">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="super_type" jdbcType="VARCHAR" property="superType" />
+    <result column="sub_type" jdbcType="VARCHAR" property="subType" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="isbn" jdbcType="VARCHAR" property="isbn" />
+    <result column="introduce" jdbcType="VARCHAR" property="introduce" />
+    <result column="price" jdbcType="REAL" property="price" />
+    <result column="now_price" jdbcType="REAL" property="nowPrice" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="pages" jdbcType="INTEGER" property="pages" />
+    <result column="publisher" jdbcType="VARCHAR" property="publisher" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="new_book" jdbcType="CHAR" property="newBook" />
+    <result column="sale_book" jdbcType="CHAR" property="saleBook" />
+    <result column="special_book" jdbcType="CHAR" property="specialBook" />
+    <result column="recommend_book" jdbcType="CHAR" property="recommendBook" />
+    <result column="add_date" jdbcType="TIMESTAMP" property="addDate" />
+  </resultMap>
+  
+  
+  <select id="queryAll" parameterType="com.shop.model.Book" resultMap="BaseResultMap">
+      select * from book 
+      <where>
+      <if test="name!=null and name!=''">
+          and name like  concat('%',#{name},'%')
+      </if>
+     
+      </where>
+  </select>
+  
+  <insert id="add" parameterType="com.shop.model.Book">
+     insert into book(super_type,sub_type,name,isbn,introduce,price,now_price,photo,pages,publisher,author,new_book,
+     sale_book,special_book,recommend_book,add_date) values(#{superType},#{subType},#{name},#{isbn},#{introduce},#{price},#{nowPrice},
+     #{photo},#{pages},#{publisher},#{author},#{newBook},#{saleBook},#{specialBook},#{recommendBook},#{addDate})
+  </insert>
+  
+  <delete id="del" parameterType="Integer">
+     delete from book where id=#{id}
+  </delete>
+  
+  <update id="updata" parameterType="com.shop.model.Book">
+        update book set super_type=#{superType}, sub_type=#{subType},name=#{name}, isbn=#{isbn},
+         introduce=#{introduce}, price=#{price}, now_price=#{nowPrice}
+        , publisher=#{publisher}, author=#{author},new_book=#{newBook}, 
+        sale_book=#{saleBook}, special_book=#{specialBook},recommend_book=#{recommendBook}
+        where id=#{id}
+  </update>
+  
+   <update id="updataLargeName"  parameterType ="String">
+        update book set super_type=#{A}  where super_type=#{B}
+  </update>
+  
+  
+   <update id="updataSmallName" parameterType="String">
+        update book set sub_type=#{subType} where sub_type=#{subType}
+  </update>
+  
+  <select id="queryById" parameterType="Integer" resultMap="BaseResultMap">
+     select * from book where id=#{id}
+  </select>
+  
+    <select id="queryHot" resultMap="BaseResultMap">
+     select * from book where sale_book="是" order by add_date desc limit #{num}
+  </select>
+  
+  <select id="queryRecommend" resultMap="BaseResultMap">
+     select * from book where recommend_book="是" order by add_date desc limit #{num}
+  </select>
+</mapper>
