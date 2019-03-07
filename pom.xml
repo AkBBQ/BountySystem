@@ -106,22 +106,6 @@
       <version>3.1</version>
     </dependency>
 
-    <!-- hibernate validator -->
-    <!-- 	<dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>4.3.1.Final</version>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <version>1.0.0.GA</version>
-        </dependency> -->
-
-
-    <!-- 映入JSON -->
-
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-annotations</artifactId>
@@ -235,6 +219,12 @@
       <scope>compile</scope>
     </dependency>
 
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.16.18</version>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
   <build>
     <finalName>shop</finalName>

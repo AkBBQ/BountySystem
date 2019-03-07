@@ -21,7 +21,7 @@
      <!-- 数据源 -->
 	 <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">	
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://47.106.8.7/shop?useUnicode=true&amp;characterEncoding=utf-8" />
+		<property name="url" value="jdbc:mysql://47.106.8.7/bounty?useUnicode=true&amp;characterEncoding=utf-8" />
 		<property name="username" value="sunjie" />
 		<property name="password" value="970306" />
 	</bean>	
@@ -65,24 +65,14 @@
     
     
      <!-- 配置方法的隔离级别 -->
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
-        <tx:attributes>
-            <tx:method name="get*" read-only="true"/>
-            <tx:method name="save*" propagation="REQUIRED" read-only="false"/>
-            <tx:method name="add*" propagation="REQUIRED"/>
-            <tx:method name="update*" propagation="REQUIRED"/>
-            <tx:method name="del*" propagation="REQUIRED"/>
-            <tx:method name="test*" propagation="REQUIRED"/>
-        </tx:attributes>
-    </tx:advice>
-
-    <!-- 配置事务切点 -->
-    <aop:config>
-        <aop:pointcut id="txPoint" expression="execution(* com.ssm.service.*.*(..))"/>
-        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPoint"/>
-    </aop:config>
-	
-    
-
-	
+    <!--<tx:advice id="txAdvice" transaction-manager="transactionManager">-->
+        <!--<tx:attributes>-->
+            <!--<tx:method name="get*" read-only="true"/>-->
+            <!--<tx:method name="save*" propagation="REQUIRED" read-only="false"/>-->
+            <!--<tx:method name="add*" propagation="REQUIRED"/>-->
+            <!--<tx:method name="update*" propagation="REQUIRED"/>-->
+            <!--<tx:method name="del*" propagation="REQUIRED"/>-->
+            <!--<tx:method name="test*" propagation="REQUIRED"/>-->
+        <!--</tx:attributes>-->
+    <!--</tx:advice>-->
 </beans>
