@@ -1,7 +1,6 @@
 /*<!-- 动态验证用户名是否存在 -->*/
 $('#rname').on('input',function (e) {
     var name=$('#rname').val();
-/*alert(addUsersName)*/
     $.ajax({
         method: 'get',
         url: 'Login/login',
@@ -26,7 +25,7 @@ $('#rname').on('input',function (e) {
 
 
 /*    <!--验证手机号码是否合法-->*/
-var inputPerameter = $('#rphone').val();
+var inputPerameter = $('#rphone');
 var booleanValue = true, value;
 
 function test() {
@@ -80,44 +79,3 @@ function test() {
         $('.hint_str').css('color', 'lawngreen');
     }
 }
-
-
-
-
-
-
-
-
-$('#RegisterSubmit').click(function(){
-	
-	
-	if($('#checkUse').text()=="可用"){
-	var Rgs_username=$('#rgs_username').val();
-	var Rgs_password=$('#rgs_password').val();
-	var Rgs_phone=$('#rgs_phone').val();
-	var Rgs_address=$('#rgs_address').val();
-	
-	var isuse=$('#checkUse').val();
-	/*alert(isuse);*/
-	
-	
-	$.ajax({
-		method:'post',
-		url:'Login/register',
-		data:{username:Rgs_username,password:Rgs_password,phone:Rgs_phone,address:Rgs_address},
-		success:function(result){
-			
-			alert("注册成功!");
-			window.location.href="index";
-		},
-		error:function(){
-			alert("注册失败!");
-		},
-		
-	})
-	}else{
-		var showsuc1="用户名重复!";
-		  $('#checkUse').html(showsuc1).css("color","red");
-	}
-	
-})

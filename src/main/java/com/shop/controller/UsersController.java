@@ -4,6 +4,7 @@ import com.shop.model.Users;
 import com.shop.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -45,13 +46,28 @@ public class UsersController {
      * 注册操作
      */
     @ResponseBody
-    @RequestMapping("register")
-    public void Register(Users users) {
+    @RequestMapping(value = "register",method = RequestMethod.POST)
+    public Integer Register(Users users) {
+        //0成功 添加异常1 有空字段2
+        Integer flag=0;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
         Date date = new Date();
         simpleDateFormat.format(date);
         users.setCreatTime(date);
-        usersService.AddUsers(users);
+        if(!StringUtils.isEmpty(users.getName()) && !StringUtils.isEmpty(users.getPwd()) &&!StringUtils.isEmpty(users.getPhone())){
+        try {
+            usersService.AddUsers(users);
+        } catch (Exception e) {
+            flag=1;
+            e.printStackTrace();
+        }
+
+        }else{
+            flag=2;
+        }
+        return flag;
+
+
 
     }
 

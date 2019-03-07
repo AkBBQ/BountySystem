@@ -14,8 +14,7 @@
   </select>
   
   <insert id="AddUsers" parameterType="com.shop.model.Users">
-             insert into user(name,pwd,phone) values(#{name},
-             #{pwd},#{phone},#{creatTime})
+             insert into user(name,pwd,phone,creat_time) values(#{name},#{pwd},#{phone},#{creatTime})
   </insert>
   
    <select id="queryAll" resultMap="BaseResultMap" >
