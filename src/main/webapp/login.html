@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>晓庄学院大家帮</title>
+	<link rel="stylesheet" href="static/loginStyle/auth.css">
+
+</head>
+
+<body>
+	<div class="lowin">
+		<div class="lowin-brand">
+			<img src="static/loginStyle/log.jpg" alt="logo">
+		</div>
+		<div class="lowin-wrapper">
+			<div class="lowin-box lowin-login">
+				<div class="lowin-box-inner">
+						<p>晓庄学院大家帮</p>
+					<span id="err_msg" style="color: red;text-align: center;padding-left: 80px"></span>
+						<div class="lowin-group">
+							<label>用户名</label>
+							<input type="text"  name="name" class="lowin-input" id="name" >
+						</div>
+						<div class="lowin-group password-group">
+							<label>密码 <a href="#" class="forgot-link"></a></label>
+							<input type="pwd" name="password" autocomplete="current-password" class="lowin-input" id="pwd" >
+						</div>
+						<button class="lowin-btn login-btn" id="btn">
+							登录
+						</button>
+
+						<div class="text-foot">
+							还没有账号? <a href="" class="register-link">注册</a>
+						</div>
+				</div>
+			</div>
+
+			<div class="lowin-box lowin-register">
+				<div class="lowin-box-inner">
+					<form>
+						<p>注册新用户</p>
+						<div class="lowin-group">
+							<label>用户名</label>
+							<span id="checkUse"></span>
+							<input type="text" name="name" class="lowin-input" id="rname">
+						</div>
+						<div class="lowin-group">
+							<label>密码</label>
+							<input type="password"  name="pwd" class="lowin-input" id="rpwd" oninput="validateFeeling(this)" required>
+						</div>
+						<div class="lowin-group">
+							<label>手机号</label>
+							<span class="hint_str"></span>
+							<input type="text"  name="phone" maxlength="11" oninput="test()" class="lowin-input" id="rphone">
+						</div>
+						<button class="lowin-btn" id="register">
+							注册
+						</button>
+
+						<div class="text-foot">
+							已有账号? <a href="" class="login-link">登录</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	
+		<footer class="lowin-footer">
+		</footer>
+	</div>
+
+	<script src="static/loginStyle/auth.js"></script>
+	<script src="static/js/jquery-1.11.1.min.js"></script>
+	<script src="static/loginStyle/login.js"></script>
+	<script src="static/loginStyle/register.js"></script>
+	<script>
+		Auth.init({
+			login_url: '#login',
+			forgot_url: '#forgot'
+		});
+	</script>
+
+
+
+	<script>
+        /*用户注册*/
+        $('#register').click(function(){
+            var name=$('#rname').val();
+            var pwd=$('#rpwd').val();
+            var phone=$('#rphone').val();
+                if($('#checkUse').text()=="可用"){
+                    $.ajax({
+                        method:'post',
+                        url:'Login/register',
+                        data:{name:name,pwd:pwd,phone:phone},
+                        success:function(result){
+                            if(result === 1){
+                                $('#err_msg').html("注册失败");
+                            }
+                            if(result === 2){
+                                alert("注册信息不能为空!")
+							}
+							if(result === 0){
+							    alert("注册成功!");
+                                window.location.href="index.html";
+							}
+                        },
+                        error:function(){
+                            alert("ajax请求失败!");
+                        },
+                    })
+				}else if($('#checkUse').text()==""){
+                    var showsuc1="不能为空!";
+                    $('#checkUse').html(showsuc1).css("color","red");
+                }else{
+                    var showsuc1="用户名重复!";
+                    $('#checkUse').html(showsuc1).css("color","red");
+				}
+        })
+	</script>
+	<script>
+        function validateFeeling(input) {
+            if (input.value == " ") {
+                input.setCustomValidity('此项为必填');
+                return false;
+            }
+        }
+	</script>
+</body>
+</html>
