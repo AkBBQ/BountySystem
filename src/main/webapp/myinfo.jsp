@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!DOCTYPE html>
 <html>
   
   <head>
@@ -8,11 +10,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="./css/font.css">
-    <link rel="stylesheet" href="./css/xadmin.css">
+    <link rel="stylesheet" href="../static/css/font.css">
+    <link rel="stylesheet" href="../static/css/xadmin.css">
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <script type="text/javascript" src="../static/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../static/js/xadmin.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -38,25 +40,43 @@
             <th>
               <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
             </th>
-            <th>ID</th>
-            <th>分类名</th>
+              <th>ID</th>
+              <th>用户名</th>
+              <th>手机号</th>
+              <th>密码</th>
+              <th>注册时间</th>
             <th>操作</th>
+          </tr>
         </thead>
         <tbody>
           <tr>
-            <td>
-              <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
-            </td>
-            <td>1</td>
-            <td>会员相关</td>
-            <td class="td-manage">
-              <a title="编辑"  onclick="x_admin_show('编辑','myinfo_update.html')" href="javascript:;">
-                <i class="layui-icon">&#xe642;</i>
-              </a>
-              <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                <i class="layui-icon">&#xe640;</i>
-              </a>
-            </td>
+              <td>
+                  <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i>
+                  </div>
+              </td>
+              <td>${user.id}</td>
+              <td>${user.name}</td>
+              <td>${user.phone}</td>
+              <td>${user.pwd}</td>
+              <td>${user.creatTime}</td>
+              <td class="td-manage">
+                     <a title="编辑"  onclick="x_admin_show('编辑','../myinfo_update.html')" href="javascript:;">
+                         <i class="layui-icon">&#xe642;</i>
+                     </a>
+                     <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                         <i class="layui-icon">&#xe640;</i>
+                     </a>
+                 </td>
+            <%--<td>1</td>--%>
+            <%--<td>会员相关</td>--%>
+            <%--<td class="td-manage">--%>
+              <%--<a title="编辑"  onclick="x_admin_show('编辑','myinfo_update.html')" href="javascript:;">--%>
+                <%--<i class="layui-icon">&#xe642;</i>--%>
+              <%--</a>--%>
+              <%--<a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">--%>
+                <%--<i class="layui-icon">&#xe640;</i>--%>
+              <%--</a>--%>
+            <%--</td>--%>
           </tr>
         </tbody>
       </table>

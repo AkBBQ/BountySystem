@@ -5,8 +5,8 @@
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="pwd" jdbcType="VARCHAR" property="pwd"/>
-        <result column="phone" jdbcType="INTEGER" property="phone"/>
-        <result column="creat_time" jdbcType="INTEGER" property="creatTime"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="creat_time" jdbcType="DATE" property="creatTime"/>
     </resultMap>
 
   <select id="LoginQuery" parameterType="com.shop.model.Users" resultType="com.shop.model.Users"> 
@@ -16,9 +16,13 @@
   <insert id="AddUsers" parameterType="com.shop.model.Users">
              insert into user(name,pwd,phone,creat_time) values(#{name},#{pwd},#{phone},#{creatTime})
   </insert>
-  
-   <select id="queryAll" resultMap="BaseResultMap" >
-       select * from user
+
+    <select id="queryAll" resultMap="BaseResultMap" >
+       select * from user where 1=1
+   </select>
+
+    <select id="queryOne" resultMap="BaseResultMap" >
+       select * from user where name =#{name}
    </select>
 
 </mapper>

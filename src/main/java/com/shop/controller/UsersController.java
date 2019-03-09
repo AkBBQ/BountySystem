@@ -2,8 +2,10 @@ package com.shop.controller;
 
 import com.shop.model.Users;
 import com.shop.service.UsersService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,7 +55,7 @@ public class UsersController {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
         Date date = new Date();
         simpleDateFormat.format(date);
-        users.setCreatTime(date);
+        users.setCreatTime(date.toString());
         if(!StringUtils.isEmpty(users.getName()) && !StringUtils.isEmpty(users.getPwd()) &&!StringUtils.isEmpty(users.getPhone())){
         try {
             usersService.AddUsers(users);
@@ -71,5 +73,19 @@ public class UsersController {
 
     }
 
+    @RequestMapping("/hello")
+    public String hello(String name, Model model){
+      SimpleDateFormat s=new SimpleDateFormat("yyyy-mm-dd");
+        try {
+            if(!StringUtils.isEmpty(name)) {
+                Users users = usersService.queryOne(name);
+                users.setCreatTime(s.format(users.getCreatTime()));
+                model.addAttribute("user",users);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "myinfo.jsp";
+    }
 
 }

@@ -43,7 +43,7 @@
   	  <bean
         class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/" />
-        <property name="suffix" value=".html" />
+        <!--<property name="suffix" value=".html" />-->
       </bean>
       
       <!-- 配置Json -->

@@ -11,7 +11,7 @@ $('#btn').click(function(){
                 $('#err_msg').html("用户名或者密码错误");
             }else if(result==0){
                 alert("登录成功");
-                window.location.href="index.html";
+                window.location.href="index.jsp";
             }
         },
         error:function(){
