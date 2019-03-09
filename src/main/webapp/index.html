@@ -91,7 +91,7 @@
             var phone=$('#rphone').val();
                 if($('#checkUse').text()=="可用"){
                     $.ajax({
-                        method:'post',
+                        type:'post',
                         url:'Login/register',
                         data:{name:name,pwd:pwd,phone:phone},
                         success:function(result){

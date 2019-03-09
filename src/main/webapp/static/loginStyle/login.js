@@ -3,7 +3,7 @@ $('#btn').click(function(){
     var name=$('#name').val();
     var pwd=$('#pwd').val();
     $.ajax({
-        method:'post',
+        type:'post',
         url:'Login/login',
         data:{name:name,pwd:pwd},
         success:function(result){
