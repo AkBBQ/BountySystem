@@ -10,7 +10,7 @@
     </resultMap>
 
   <select id="LoginQuery" parameterType="com.shop.model.Users" resultType="com.shop.model.Users"> 
-         select name,pwd,phone from user where name=#{name}
+         select * from user where name=#{name}
   </select>
   
   <insert id="AddUsers" parameterType="com.shop.model.Users">
@@ -24,5 +24,16 @@
     <select id="queryOne" resultMap="BaseResultMap" >
        select * from user where name =#{name}
    </select>
+
+    <select id="queryOneUser" resultMap="BaseResultMap" >
+       select * from user where id =#{id}
+   </select>
+
+    <update id="update" parameterType="Users">
+        update user
+        set name=#{name},pwd=#{pwd},phone=#{phone}
+        where id=#{id}
+
+    </update>
 
 </mapper>

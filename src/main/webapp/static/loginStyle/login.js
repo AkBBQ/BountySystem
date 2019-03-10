@@ -10,7 +10,6 @@ $('#btn').click(function(){
             if(result==1 || result==2){
                 $('#err_msg').html("用户名或者密码错误");
             }else if(result==0){
-                alert("登录成功");
                 window.location.href="index.jsp";
             }
         },

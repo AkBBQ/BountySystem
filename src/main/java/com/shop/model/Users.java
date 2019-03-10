@@ -15,6 +15,6 @@ public class Users {
     //手机号
     public String phone;
     //注册时间
-    public String creatTime;
+    public Date creatTime;
 
 }

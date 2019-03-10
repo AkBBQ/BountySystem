@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!DOCTYPE html>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
   
   <head>
@@ -37,9 +38,6 @@
       <table class="layui-table">
         <thead>
           <tr>
-            <th>
-              <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
-            </th>
               <th>ID</th>
               <th>用户名</th>
               <th>手机号</th>
@@ -50,47 +48,19 @@
         </thead>
         <tbody>
           <tr>
-              <td>
-                  <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i>
-                  </div>
-              </td>
               <td>${user.id}</td>
               <td>${user.name}</td>
               <td>${user.phone}</td>
               <td>${user.pwd}</td>
-              <td>${user.creatTime}</td>
+              <td><fmt:formatDate value="${user.creatTime}" pattern="yyyy-MM-dd"/></td>
               <td class="td-manage">
-                     <a title="编辑"  onclick="x_admin_show('编辑','../myinfo_update.html')" href="javascript:;">
+                     <a title="编辑"  onclick="x_admin_show('编辑','../Login/session')" href="javascript:;">
                          <i class="layui-icon">&#xe642;</i>
                      </a>
-                     <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                         <i class="layui-icon">&#xe640;</i>
-                     </a>
                  </td>
-            <%--<td>1</td>--%>
-            <%--<td>会员相关</td>--%>
-            <%--<td class="td-manage">--%>
-              <%--<a title="编辑"  onclick="x_admin_show('编辑','myinfo_update.html')" href="javascript:;">--%>
-                <%--<i class="layui-icon">&#xe642;</i>--%>
-              <%--</a>--%>
-              <%--<a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">--%>
-                <%--<i class="layui-icon">&#xe640;</i>--%>
-              <%--</a>--%>
-            <%--</td>--%>
           </tr>
         </tbody>
       </table>
-      <div class="page">
-        <div>
-          <a class="prev" href="">&lt;&lt;</a>
-          <a class="num" href="">1</a>
-          <span class="current">2</span>
-          <a class="num" href="">3</a>
-          <a class="num" href="">489</a>
-          <a class="next" href="">&gt;&gt;</a>
-        </div>
-      </div>
-
     </div>
     <script>
       layui.use('laydate', function(){

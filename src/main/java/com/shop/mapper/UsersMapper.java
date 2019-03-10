@@ -12,5 +12,11 @@ public interface UsersMapper {
     
 	public List<Users> queryAll();//后台查询所有用户信息
 
-	Users queryOne(String name); //根据用户名差用户
+	Users queryOne(String name); //根据用户名查找用户
+
+	void update(Users users);//更新用户
+
+	Users queryOneUser(Integer id);
+
+
 }

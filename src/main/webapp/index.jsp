@@ -110,7 +110,7 @@ pageEncoding="UTF-8"%>
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="Login/hello?name=${sessionScope.userinfo.name}">
+                        <a _href="Login/getUserFromSession">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>我的信息</cite>
                         </a>
