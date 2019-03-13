@@ -49,7 +49,7 @@ public class Mission {
     /**
      * 是否锁定(0,锁定；1:可接)
      */
-    public int lock;
+    public int locking;
     /**
      * 锁定描述
      */

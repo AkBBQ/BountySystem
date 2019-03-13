@@ -45,9 +45,12 @@ public class MissionController {
             //多条件查询结果
             if (mission.getPageNo() == 0) {
                 //初始化查询页码
-                mission.pageNo = 1;
+                mission.setPageNo(1);
             }
+            mission.setPagesize(10);
+            System.out.println("前台传过来的任务开始时间 ： "+mission.getStartTime());
             List<Mission> missions = missionService.queryAllMissons(mission);
+            //java8 stream流的使用
             missions.stream().forEach(one->{
                 //根据发布人id查到发布人姓名
                 Users users = usersService.queryOneuser(one.getPid());
@@ -60,10 +63,10 @@ public class MissionController {
                     one.setStatusDesc("完成");
                 }
                 //是否可接转换
-                if(one.getLock() == 0){
+                if(one.getLocking() == 0){
                     one.setLockDesc("锁定");
                 }
-                if(one.getLock() == 1){
+                if(one.getLocking() == 1){
                     one.setLockDesc("可接");
                 }
 
@@ -71,8 +74,13 @@ public class MissionController {
             });
             //多条件查询总计
             Integer count = missionService.count(mission);
+            //总共有几页
+            Integer pages = count % mission.getPagesize() > 0 ? count/mission.getPagesize() + 1 :count / mission.getPagesize();
             model.addAttribute("missions", missions);
+            //总记录数
             model.addAttribute("count", count);
+            //总页数
+            model.addAttribute("pages", pages);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -82,6 +90,7 @@ public class MissionController {
     /**
      *新增一条任务
      */
+    @ResponseBody
     @RequestMapping("/addMission")
     public String addMission(Mission mission, HttpSession httpSession){
         try {
@@ -92,7 +101,7 @@ public class MissionController {
             //发布任务的人是当前登陆者
             mission.setPid( users.getId());
             //新建任务的状态可接，未完成
-            mission.setLock(1);
+            mission.setLocking(1);
             mission.setStatus(0);
             //任务当前创建时间
             mission.setCreatTime(new Date());

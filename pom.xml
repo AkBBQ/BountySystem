@@ -200,13 +200,6 @@
       <version>2.4</version>
     </dependency>
 
-    <!-- 导出excel -->
-    <dependency>
-      <groupId>net.sourceforge.jexcelapi</groupId>
-      <artifactId>jxl</artifactId>
-      <version>2.6.3</version>
-    </dependency>
-
     <dependency>
       <groupId>commons-logging</groupId>
       <artifactId>commons-logging</artifactId>
@@ -218,11 +211,18 @@
       <version>RELEASE</version>
       <scope>compile</scope>
     </dependency>
-
+<!--lombok插件-->
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>1.16.18</version>
+    </dependency>
+
+    <!-- mybatis物理分页插件 -->
+    <dependency>
+      <groupId>com.github.pagehelper</groupId>
+      <artifactId>pagehelper</artifactId>
+      <version>5.1.2</version>
     </dependency>
   </dependencies>
   <build>
