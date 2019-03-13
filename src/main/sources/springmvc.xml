@@ -41,10 +41,10 @@
 	
 	 <!-- 配置视图解析器 -->
   	  <bean
-        class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/" />
-        <property name="suffix" value=".html" />
-      </bean>
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<property name="prefix" value="/" />
+	<!--<property name="suffix" value=".html" />-->
+</bean>
       
       <!-- 配置Json -->
 	  <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">

@@ -4,6 +4,7 @@ import com.shop.model.Users;
 import com.shop.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -70,6 +71,43 @@ public class UsersController {
 
 
     }
+/**
+ *直接拿到session中的当前登陆者
+ */
+    @RequestMapping("/getUserFromSession")
+    public String getUserInfo(HttpSession httpSession, Model model){
+        Object userinfo = httpSession.getAttribute("userinfo");
+        model.addAttribute("user",userinfo);
+        return "myinfo.jsp";
+    }
 
+    /**
+     *直接拿到session中的当前登陆者
+     */
+@RequestMapping("/session")
+public String getUser(HttpSession httpSession,Model model){
+    Object userinfo = httpSession.getAttribute("userinfo");
+    model.addAttribute("user",userinfo);
+    return "myinfo_update.jsp";
+}
+
+/**
+ * 修改账号信息
+ */
+
+@ResponseBody
+@RequestMapping("/update")
+public Boolean  update(HttpSession session,Users users){
+    Boolean result=false;
+    try {
+        usersService.update(users);
+        result=true;
+        //修改密码之后清空之前的session
+        session.removeAttribute("userinfo");
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return result;
+}
 
 }

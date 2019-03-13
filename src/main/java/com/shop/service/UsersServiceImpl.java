@@ -25,4 +25,16 @@ public class UsersServiceImpl implements UsersService{
 		return usersMapper.queryAll();
 	}
 
+	public Users queryOne(String name) {
+		return usersMapper.queryOne(name);
+	}
+
+	public void update(Users users) {
+		usersMapper.update(users);
+	}
+
+	public Users queryOneuser(Integer id) {
+		return usersMapper.queryOneUser(id);
+	}
+
 }
