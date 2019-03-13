@@ -15,4 +15,12 @@ import java.util.List;
 public interface MissionService {
 
     List<Mission> queryAllMissons(Mission mission);
+
+
+    Integer count(Mission mission);
+
+    /**
+     *发布任务
+     */
+    void addMission(Mission mission);
 }

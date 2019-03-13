@@ -65,7 +65,7 @@
               </div>
           </div>
           <div class="layui-form-item">
-              <button  class="layui-btn"  id="update">
+              <button  class="layui-btn" onclick="x_admin_close()" id="update">
                   修改
               </button>
           </div>
@@ -83,8 +83,10 @@
                 data: {id: id, name: name, pwd: pwd, phone: phone},
                 success: function (result) {
                     if (result) {
-                        alert("修改成功!");
-                        window.location.href = "login.html";
+                       alert("修改成功");
+                        window.location.href = "/login.html";
+                    }else {
+                        alert("修改失败")
                     }
                 },
                 error: function () {

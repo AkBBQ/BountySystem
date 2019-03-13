@@ -39,43 +39,42 @@
 <div class="x-body">
     <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so">
-            <input class="layui-input" placeholder="开始日" name="start" id="start">
-            <input class="layui-input" placeholder="截止日" name="end" id="end">
+            <input class="layui-input" placeholder="开始日" name="creatTime" id="start">
+            <input class="layui-input" placeholder="截止日" name="endTime" id="end">
+            <%--<div class="layui-input-inline">--%>
+                <%--<select name="status">--%>
+                    <%--<option>任务状态</option>--%>
+                    <%--<option>未完成</option>--%>
+                    <%--<option>已完成</option>--%>
+                <%--</select>--%>
+            <%--</div>--%>
+            <%--<div class="layui-input-inline">--%>
+                <%--<select name="lock">--%>
+                    <%--<option>是否可接</option>--%>
+                    <%--<option>可接</option>--%>
+                    <%--<option>不可接</option>--%>
+                <%--</select>--%>
+            <%--</div>--%>
             <div class="layui-input-inline">
-                <select name="contrller">
-                    <option>支付状态</option>
-                    <option>已支付</option>
-                    <option>未支付</option>
+                <select name="type">
+                    <option value="">任务类型</option>
+                    <option value="0">外卖</option>
+                    <option value="1">话费</option>
+                    <option value="2">x</option>
+                    <option value="3">x</option>
+                    <option value="4">x</option>
+                    <option value="5">x</option>
                 </select>
             </div>
-            <div class="layui-input-inline">
-                <select name="contrller">
-                    <option>支付方式</option>
-                    <option>支付宝</option>
-                    <option>微信</option>
-                    <option>货到付款</option>
-                </select>
-            </div>
-            <div class="layui-input-inline">
-                <select name="contrller">
-                    <option value="">订单状态</option>
-                    <option value="0">待确认</option>
-                    <option value="1">已确认</option>
-                    <option value="2">已收货</option>
-                    <option value="3">已取消</option>
-                    <option value="4">已完成</option>
-                    <option value="5">已作废</option>
-                </select>
-            </div>
-            <input type="text" name="username" placeholder="请输入订单号" autocomplete="off" class="layui-input">
+            <input type="text" name="id" placeholder="需求编号" autocomplete="off" class="layui-input">
             <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>
     </div>
     <xblock>
 
-        <button class="layui-btn" onclick="x_admin_show('添加用户','./mission_add.html')"><i class="layui-icon"></i>添加
+        <button class="layui-btn" onclick="x_admin_show('发布需求','../mission_add.html')"><i class="layui-icon"></i>添加
         </button>
-        <span class="x-right" style="line-height:40px">共有数据：88 条</span>
+        <span class="x-right" style="line-height:40px">共有数据：${count} 条</span>
     </xblock>
     <table class="layui-table">
         <thead>
@@ -84,11 +83,11 @@
                 <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i
                         class="layui-icon">&#xe605;</i></div>
             </th>
-            <th>需求编号</th>
+            <th>编号</th>
             <th>标题</th>
             <th>类型</th>
             <th>地点</th>
-            <th>创建时间</th>
+            <th>开始时间</th>
             <th>结束时间</th>
             <th>任务状态</th>
             <th>是否可接</th>
@@ -109,12 +108,12 @@
                 <td>${items.title}</td>
                 <td>${items.type}</td>
                 <td>${items.place}</td>
-                <td><fmt:formatDate value="${items.creatTime}" pattern="yyyy-MM-dd"/></td>
+                <td><fmt:formatDate value="${items.startTime}" pattern="yyyy-MM-dd"/></td>
                 <td><fmt:formatDate value="${items.endTime}" pattern="yyyy-MM-dd"/></td>
-                <td>${items.status}</td>
-                <td>${items.lock}</td>
+                <td>${items.statusDesc}</td>
+                <td>${items.lockDesc}</td>
                 <td>${items.content}</td>
-                <td>${items.pid}</td>
+                <td>${items.pidName}</td>
                 <td class="td-manage">
                     <a title="查看" onclick="x_admin_show('编辑','order-view.html')" href="javascript:;">
                         <i class="layui-icon">&#xe63c;</i>

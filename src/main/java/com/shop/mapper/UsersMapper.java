@@ -16,7 +16,7 @@ public interface UsersMapper {
 
 	void update(Users users);//更新用户
 
-	Users queryOneUser(Integer id);
+	Users queryOneUser(Integer id);//根据用户id查找用户
 
 
 }
