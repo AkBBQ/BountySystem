@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
+/**
+ *任务处理服务
+ */
 @Service
 public class MissionServiceImpl implements MissionService {
 
@@ -17,5 +19,15 @@ public class MissionServiceImpl implements MissionService {
 
 	public List<Mission> queryAllMissons(Mission mission) {
 		return missionMapper.queryAllMissions(mission);
+	}
+
+	public Integer count(Mission mission) {
+		return missionMapper.count(mission);
+	}
+
+	@Override
+	public void addMission(Mission mission) {
+		missionMapper.addMission(mission);
+
 	}
 }

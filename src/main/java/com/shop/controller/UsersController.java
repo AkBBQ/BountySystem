@@ -98,14 +98,16 @@ public String getUser(HttpSession httpSession,Model model){
 @ResponseBody
 @RequestMapping("/update")
 public Boolean  update(HttpSession session,Users users){
+    Boolean result=false;
     try {
         usersService.update(users);
+        result=true;
         //修改密码之后清空之前的session
         session.removeAttribute("userinfo");
     } catch (Exception e) {
         e.printStackTrace();
     }
-    return true;
+    return result;
 }
 
 }
