@@ -149,11 +149,11 @@
     </dependency>
 
     <!-- Junit测试使用的jre包 -->
-    <!-- 		<dependency>
+  		<dependency>
         <groupId>org.aspectj</groupId>
         <artifactId>aspectjweaver</artifactId>
         <version>1.8.13</version>
-    </dependency> -->
+    </dependency>
 
 
     <!-- 导入dbcp的jar包，用来在applicationContext.xml中配置数据库 -->

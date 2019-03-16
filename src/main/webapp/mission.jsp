@@ -38,45 +38,86 @@
 </div>
 <div class="x-body">
     <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so" action="/mission/queryAll" method="post" name="postRequest">
-            <%--<input class="layui-input"  placeholder="开始日" name="startTime" id="startTime">--%>
-            <%--<input class="layui-input"  placeholder="截止日" name="endTime" id="endTime">--%>
+        <form action="/mission/queryAll" method="post" name="postRequest">
+            <input type="hidden" name="pageNo" id="pageNo" value="${queryModel.pageNo}">
             <div class="layui-input-inline">
-                <span>任务类型</span>
-                <select name="status">
-                    <option value="">全部</option>
-                    <option value="0">未完成</option>
-                    <option value="1">已完成</option>
+            <input type="text" name="id" placeholder="需求编号" class="layui-input" value="${queryModel.id}">
+            </div>
+            <div class="layui-input-inline">
+                <select name="statusDesc" value="${queryModel}">
+                    <option>任务状态</option>
+                    <option value="未完成" <c:if test="${'未完成' eq queryModel.statusDesc}">selected</c:if> >未完成</option>
+                    <option value="已完成" <c:if test="${'已】完成' eq queryModel.statusDesc}">selected</c:if>>已完成</option>
                 </select>
             </div>
             <div class="layui-input-inline">
-                <span>是否可接</span>
-                <select name="locking">
-                    <option value="1">可接</option>
-                    <option value="0">不可接</option>
+                <select name="lockDesc">
+                    <option>是否可接</option>
+                    <option value="锁定" <c:if test="${'锁定' eq queryModel.lockDesc}"> selected </c:if> >锁定</option>
+                    <option value="可接" <c:if test="${'可接' eq queryModel.lockDesc}"> selected</c:if> >可接</option>
                 </select>
             </div>
-            <%--<div class="layui-input-inline">--%>
-                <%--<select name="type">--%>
-                    <%--<option value="">任务类型</option>--%>
-                    <%--<option value="0">外卖</option>--%>
-                    <%--<option value="1">话费</option>--%>
-                    <%--<option value="2">x</option>--%>
-                    <%--<option value="3">x</option>--%>
-                    <%--<option value="4">x</option>--%>
-                    <%--<option value="5">x</option>--%>
-                <%--</select>--%>
-            <%--</div>--%>
-            <input type="text" name="id" placeholder="需求编号" autocomplete="off" class="layui-input">
-            <input type="hidden" name="pageNo" id="pageNo">
+
+            <div class="layui-input-inline">
+
+                <input class="layui-input"  placeholder="开始日" name="startTime" id="startTime"
+                      <c:if test="${null != queryModel.startTime}">
+                       value="<fmt:formatDate value="${queryModel.startTime}" pattern="yyyy-MM-dd"/>"
+                      </c:if>
+                />
+
+            </div>
+            <div class="layui-input-inline">
+            <input class="layui-input"  placeholder="截止日" name="endTime" id="endTime"
+                   <c:if test="${ null != queryModel.endTime}">
+                   value="<fmt:formatDate value="${queryModel.endTime}" pattern="yyyy-MM-dd"/>"
+                   </c:if>
+            />
+            </div>
             <button class="layui-btn" type="submit"><i class="layui-icon">&#xe615;</i></button>
         </form>
+
+
+
+        <%--<form class="layui-form layui-col-md12 x-so" action="/mission/queryAll" method="post" name="postRequest">--%>
+            <%--&lt;%&ndash;<input class="layui-input"  placeholder="开始日" name="startTime" id="startTime">&ndash;%&gt;--%>
+            <%--&lt;%&ndash;<input class="layui-input"  placeholder="截止日" name="endTime" id="endTime">&ndash;%&gt;--%>
+            <%--<div class="layui-input-inline">--%>
+                <%--<span>任务类型</span>--%>
+                <%--<select name="status">--%>
+                    <%--<option value="">全部</option>--%>
+                    <%--<option value="0">未完成</option>--%>
+                    <%--<option value="1">已完成</option>--%>
+                <%--</select>--%>
+            <%--</div>--%>
+            <%--&lt;%&ndash;<div class="layui-input-inline">&ndash;%&gt;--%>
+                <%--<span>是否可接</span>--%>
+                <%--<select name="locking">--%>
+                    <%--<option value="1">可接</option>--%>
+                    <%--<option value="0">不可接</option>--%>
+                <%--</select>--%>
+            <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+            <%--&lt;%&ndash;<div class="layui-input-inline">&ndash;%&gt;--%>
+                <%--&lt;%&ndash;<select name="type">&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;<option value="">任务类型</option>&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;<option value="0">外卖</option>&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;<option value="1">话费</option>&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;<option value="2">x</option>&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;<option value="3">x</option>&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;<option value="4">x</option>&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;<option value="5">x</option>&ndash;%&gt;--%>
+                <%--&lt;%&ndash;</select>&ndash;%&gt;--%>
+            <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+            <%--<input type="text" name="id" placeholder="需求编号"  class="layui-input">--%>
+            <%--<input type="hidden" name="pageNo" id="pageNo">--%>
+            <%--<button class="layui-btn" type="submit" ><i class="layui-icon">&#xe615;</i></button>--%>
+        <%--</form>--%>
     </div>
     <xblock>
 
-        <button class="layui-btn" onclick="x_admin_show('发布需求','../mission_add.html')"><i class="layui-icon"></i>添加
+        <button class="layui-btn" onclick="x_admin_show('发布需求','../mission_add.html')"><i class="layui-icon"></i>发布求助
         </button>
-        <span class="x-right" style="line-height:40px">共有数据：${count} 条 ${pages} 页</span>
+        <span class="x-right" style="line-height:40px">共有数据：${count} 条 </span>
     </xblock>
     <table class="layui-table">
         <thead>
@@ -108,7 +149,7 @@
                 <%--</td>--%>
                 <td>${items.id}</td>
                 <td>${items.title}</td>
-                <td>${items.type}</td>
+                <td>${items.typeDesc}</td>
                 <td>${items.place}</td>
                 <td><fmt:formatDate value="${items.startTime}" pattern="yyyy-MM-dd"/></td>
                 <td><fmt:formatDate value="${items.endTime}" pattern="yyyy-MM-dd"/></td>
@@ -130,21 +171,22 @@
     </table>
     <div class="page">
         <div>
-            <c:if test = "${pages} = 1">
-                <a class="num" href="javascript:go(1)">
-            </c:if>
-
-            <%--<c:if test="${pages} > 1">--%>
-                <%--<a class="num" href="">1</a>--%>
-            <%--</c:if>--%>
-            <%----%>
-            <%--<a class="prev" href="">&lt;&lt;</a>--%>
-            <%--<a class="num" href="">1</a>--%>
-            <%--<span class="current">2</span>--%>
-            <%--<a class="num" href="">3</a>--%>
-            <%--<a class="num" href="">489</a>--%>
-            <%--<a class="next" href="">&gt;&gt;</a>--%>
+            <a class="num" href="javascript:go(1)">首页</a>
+            <c:if test="${currPage - 1 > 0}">
+            <a class="prev" href="javascript:go(${currPage - 1})">
+                </c:if>
+                上一页
+            </a>
+                <c:if test="${currPage + 1 <= pages}">
+            <a class="prev" href="javascript:go(${currPage + 1})">
+                </c:if>
+                下一页
+            </a>
+            <a class="num" href="javascript:go(${pages})">末页</a>
         </div>
+    </div>
+    <div class="page">
+        共${pages}页 ，当前第${currPage}页
     </div>
 
 </div>

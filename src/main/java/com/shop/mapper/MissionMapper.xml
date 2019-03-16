@@ -39,7 +39,7 @@
             </if>
 
             <if test="endTime != null and endTime != '' ">
-                and end_time &lt;= #{endTIme}
+                and end_time &lt;= #{endTime}
             </if>
 
         </where>
@@ -70,7 +70,7 @@
             </if>
 
             <if test="endTime != null and endTime != '' ">
-                and end_time &lt;= #{endTIme}
+                and end_time &lt;= #{endTime}
             </if>
 
 

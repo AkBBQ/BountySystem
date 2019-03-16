@@ -9,11 +9,11 @@ public class Mission {
     /**
      * 主键id
      */
-    public int id;
+    public Integer id;
     /**
      * 任务类型
      */
-    public int type;
+    public Integer type;
     /**
      * 任务类型描述
      */
@@ -39,17 +39,17 @@ public class Mission {
      */
     public String place;
     /**
-     * 任务状态(0,未完成;1,完成)
+     * 任务状态(1,未完成;2,完成)
      */
-    public int status;
+    public Integer status;
     /**
      * 任务状态描述
      */
     public String statusDesc;
     /**
-     * 是否锁定(0,锁定；1:可接)
+     * 是否锁定(1,锁定；2:可接)
      */
-    public int locking;
+    public Integer locking;
     /**
      * 锁定描述
      */
@@ -57,7 +57,7 @@ public class Mission {
     /**
      * 任务发起人id
      */
-    public int pid;
+    public Integer pid;
     /**
      * 任务发起人姓名
      */
@@ -79,12 +79,4 @@ public class Mission {
      */
     public int offset;
 
-
-    public int getOffset() {
-        return offset;
-    }
-
-    public void setOffset(int offset) {
-        this.offset = (pageNo - 1) * pagesize;
-    }
 }
