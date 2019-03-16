@@ -75,7 +75,7 @@
               </div>
           </div>
           <div class="layui-form-item">
-              <button  class="layui-btn" lay-filter="add" lay-submit="" type="submit">
+              <button  class="layui-btn" lay-filter="add" lay-submit="" type="submit" id="add">
                   增加
               </button>
           </div>
@@ -166,6 +166,31 @@
             });
         });
     </script>
+
+  <script>
+      $('#add').click(function () {
+          var title=$('#title').val();
+          var type=$('#type').val();
+          var place = $('#place').val();
+          var startTime = $('#startTime').val();
+          var endTime = $('#endTime').val();
+          var content = $('#content').val();
+          $.ajax({
+           type: "post",
+           url : "../mission/addMission",
+           data:{title:title,type:type,place:place,startTime:startTime,endTime:endTime,content:content},
+           success:function (result){
+
+           },
+           error:function () {
+
+           }
+          })
+      });
+
+
+
+  </script>
   </body>
 
 </html>

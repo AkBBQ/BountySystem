@@ -1,83 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.mapper.MissionMapper">
-  <resultMap id="BaseResultMap" type="com.shop.model.Mission">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="type" jdbcType="INTEGER" property="type" />
-    <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="start_time" jdbcType="DATE" property="startTime" />
-    <result column="end_time" jdbcType="DATE" property="endTime" />
-    <result column="place" jdbcType="VARCHAR" property="place" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="lock" jdbcType="INTEGER" property="lock" />
-    <result column="pid" jdbcType="INTEGER" property="pid" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
-  </resultMap>
-  
-  <select id="queryAllMissions" parameterType="Mission" resultMap="BaseResultMap">
-    select * from mission
-    <where>
-      <if test="null != id and id != '' ">
-        and id=#{id}
-      </if>
+    <resultMap id="BaseResultMap" type="com.shop.model.Mission">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="start_time" jdbcType="DATE" property="startTime"/>
+        <result column="end_time" jdbcType="DATE" property="endTime"/>
+        <result column="creat_time" jdbcType="DATE" property="creatTime"/>
+        <result column="place" jdbcType="VARCHAR" property="place"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="locking" jdbcType="INTEGER" property="locking"/>
+        <result column="pid" jdbcType="INTEGER" property="pid"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+    </resultMap>
 
-      <if test="type != null and type != '' ">
-        and type=#{type}
-      </if>
+    <select id="queryAllMissions" parameterType="Mission" resultMap="BaseResultMap">
+        select * from mission
+        <where>
+            <if test="null != id and id != '' ">
+                and id = #{id}
+            </if>
 
-      <if test="status != null and status != '' ">
-        and status=#{status}
-      </if>
+            <if test="type != null and type != '' ">
+                and type = #{type}
+            </if>
 
-      <if test="lock != null and lock != '' ">
-        and lock=#{type}
-      </if>
+            <if test="status != null and status != '' ">
+                and status = #{status}
+            </if>
 
-      <if test="startTime != null and startTime != '' ">
-        and start_time &gt;= #{startTime}
-      </if>
+            <if test="locking != null and locking != '' ">
+                and locking = #{locking}
+            </if>
 
-      <if test="endTime != null and endTime != '' ">
-        and end_time  &lt;= #{endTIme}
-      </if>
+            <if test="startTime != null and startTime != '' ">
+                and start_time &gt;= #{startTime}
+            </if>
 
-    </where>
-    LIMIT #{offset},#{pagesize}
-  </select>
+            <if test="endTime != null and endTime != '' ">
+                and end_time &lt;= #{endTime}
+            </if>
 
-  <select id="count" parameterType="Mission" resultType="integer">
-    select count(1) from mission
-    <where>
-      <if test="null != id and id != '' ">
-        and id=#{id}
-      </if>
+        </where>
+        LIMIT #{offset},#{pagesize}
+    </select>
 
-      <if test="type != null and type != '' ">
-        and type=#{type}
-      </if>
+    <select id="count" parameterType="Mission" resultType="integer">
+        select count(1) from mission
+        <where>
+            <if test="null != id and id != '' ">
+                and id = #{id}
+            </if>
 
-      <if test="status != null and status != '' ">
-        and status=#{status}
-      </if>
+            <if test="type != null and type != '' ">
+                and type = #{type}
+            </if>
 
-      <if test="lock != null and lock != '' ">
-        and lock=#{type}
-      </if>
+            <if test="status != null and status != '' ">
+                and status = #{status}
+            </if>
 
-      <if test="startTime != null and startTime != '' ">
-        and start_time &gt;= #{startTime}
-      </if>
+            <if test="locking != null and locking != '' ">
+                and locking = #{locking}
+            </if>
 
-      <if test="endTime != null and endTime != '' ">
-        and end_time  &lt;= #{endTIme}
-      </if>
+            <if test="startTime != null and startTime != '' ">
+                and start_time &gt;= #{startTime}
+            </if>
+
+            <if test="endTime != null and endTime != '' ">
+                and end_time &lt;= #{endTime}
+            </if>
 
 
-    </where>
-  </select>
+        </where>
+    </select>
 
     <insert id="addMission" parameterType="Mission">
-        insert into mission(type,content,creat_time,end_time,place,status,lock,pid,title)
-        values(#{type},#{content},#{creatTime},#{endTime},#{place},#{status},#{lock},#{pid},#{title})
+        insert into mission(type,pid,title,place,content,start_time,end_time,creat_time,status,locking)
+        values(#{type},#{pid},#{title},#{place},#{content},#{startTime},#{endTime},#{creatTime},#{status},#{locking} )
     </insert>
 </mapper>

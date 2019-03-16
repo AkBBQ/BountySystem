@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  *任务处理服务
+ * @author angtai
  */
 @Service
 public class MissionServiceImpl implements MissionService {
@@ -17,10 +18,12 @@ public class MissionServiceImpl implements MissionService {
     MissionMapper missionMapper;
 
 
+	@Override
 	public List<Mission> queryAllMissons(Mission mission) {
 		return missionMapper.queryAllMissions(mission);
 	}
 
+	@Override
 	public Integer count(Mission mission) {
 		return missionMapper.count(mission);
 	}
