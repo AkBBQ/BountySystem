@@ -47,7 +47,6 @@ public class MissionTest {
         Mission mission = new Mission();
         mission.setPagesize(10);
 //        mission.setLocking(0);
-        mission.setStatus(1);
         List<Mission> missions = missionService.queryAllMissons(mission);
         missions.stream().forEach(x->{
             System.out.println(x.toString());

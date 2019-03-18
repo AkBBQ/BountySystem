@@ -1,7 +1,6 @@
 package com.shop.model;
 
 import lombok.Data;
-
 import java.util.Date;
 
 @Data

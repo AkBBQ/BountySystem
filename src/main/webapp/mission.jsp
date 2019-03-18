@@ -77,41 +77,6 @@
             <button class="layui-btn" type="submit"><i class="layui-icon">&#xe615;</i></button>
         </form>
 
-
-
-        <%--<form class="layui-form layui-col-md12 x-so" action="/mission/queryAll" method="post" name="postRequest">--%>
-            <%--&lt;%&ndash;<input class="layui-input"  placeholder="开始日" name="startTime" id="startTime">&ndash;%&gt;--%>
-            <%--&lt;%&ndash;<input class="layui-input"  placeholder="截止日" name="endTime" id="endTime">&ndash;%&gt;--%>
-            <%--<div class="layui-input-inline">--%>
-                <%--<span>任务类型</span>--%>
-                <%--<select name="status">--%>
-                    <%--<option value="">全部</option>--%>
-                    <%--<option value="0">未完成</option>--%>
-                    <%--<option value="1">已完成</option>--%>
-                <%--</select>--%>
-            <%--</div>--%>
-            <%--&lt;%&ndash;<div class="layui-input-inline">&ndash;%&gt;--%>
-                <%--<span>是否可接</span>--%>
-                <%--<select name="locking">--%>
-                    <%--<option value="1">可接</option>--%>
-                    <%--<option value="0">不可接</option>--%>
-                <%--</select>--%>
-            <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-            <%--&lt;%&ndash;<div class="layui-input-inline">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<select name="type">&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;<option value="">任务类型</option>&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;<option value="0">外卖</option>&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;<option value="1">话费</option>&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;<option value="2">x</option>&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;<option value="3">x</option>&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;<option value="4">x</option>&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;<option value="5">x</option>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</select>&ndash;%&gt;--%>
-            <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-            <%--<input type="text" name="id" placeholder="需求编号"  class="layui-input">--%>
-            <%--<input type="hidden" name="pageNo" id="pageNo">--%>
-            <%--<button class="layui-btn" type="submit" ><i class="layui-icon">&#xe615;</i></button>--%>
-        <%--</form>--%>
     </div>
     <xblock>
 
@@ -136,17 +101,12 @@
             <th>是否可接</th>
             <th>详细说明</th>
             <th>任务发起人</th>
-            <th>操作</th>
+            <th>操作(接任务)</th>
         </tr>
         </thead>
         <tbody>
 
             <c:forEach items="${missions}" var="items">
-        <tr>
-                <%--<td>--%>
-                    <%--<div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i--%>
-                            <%--class="layui-icon">&#xe605;</i></div>--%>
-                <%--</td>--%>
                 <td>${items.id}</td>
                 <td>${items.title}</td>
                 <td>${items.typeDesc}</td>
@@ -158,12 +118,12 @@
                 <td>${items.content}</td>
                 <td>${items.pidName}</td>
                 <td class="td-manage">
-                    <a title="查看" onclick="x_admin_show('编辑','order-view.html')" href="javascript:;">
-                        <i class="layui-icon">&#xe63c;</i>
+                    <c:if test="${'可接' eq items.lockDesc}">
+
+                    <a title="抢单" onclick="member_xiadan(this,'要抢单的任务id')" href="javascript:;">
+                        <i class="layui-icon">&#xe66c;</i>
                     </a>
-                    <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                        <i class="layui-icon">&#xe640;</i>
-                    </a>
+                    </c:if>
                 </td>
         </tr>
             </c:forEach>
@@ -207,48 +167,13 @@
         });
     });
 
-    /*用户-停用*/
-    function member_stop(obj, id) {
-        layer.confirm('确认要停用吗？', function (index) {
 
-            if ($(obj).attr('title') == '启用') {
-
-                //发异步把用户状态进行更改
-                $(obj).attr('title', '停用')
-                $(obj).find('i').html('&#xe62f;');
-
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!', {icon: 5, time: 1000});
-
-            } else {
-                $(obj).attr('title', '启用')
-                $(obj).find('i').html('&#xe601;');
-
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!', {icon: 5, time: 1000});
-            }
-
-        });
-    }
-
-    /*用户-删除*/
-    function member_del(obj, id) {
-        layer.confirm('确认要删除吗？', function (index) {
+    /*用户-抢单*/
+    function member_xiadan(obj, id) {
+        layer.confirm('确认要抢单吗？', function (index) {
             //发异步删除数据
             $(obj).parents("tr").remove();
-            layer.msg('已删除!', {icon: 1, time: 1000});
-        });
-    }
-
-
-    function delAll(argument) {
-
-        var data = tableCheck.getData();
-
-        layer.confirm('确认要删除吗？' + data, function (index) {
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
+            layer.msg('已抢到该任务!', {icon: 1, time: 1000});
         });
     }
 </script>

@@ -4,6 +4,9 @@ package com.shop.Eunm;
  * 任务类型枚举
  */
 public enum MissionTypeEunm {
+    /**
+     * 任务类型枚举类
+     */
     WAIMAI(0 ,"代拿外卖"),
     KUAIDI(1,"代拿快递"),
     XUEXI(2,"组队学习"),
