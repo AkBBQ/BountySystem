@@ -1,8 +1,11 @@
 package com.shop.controller;
 
 import com.shop.Eunm.MissionTypeEunm;
+import com.shop.mapper.DealMissionMapper;
+import com.shop.model.DealMission;
 import com.shop.model.Mission;
 import com.shop.model.Users;
+import com.shop.service.DealMissionService;
 import com.shop.service.MissionService;
 import com.shop.service.UsersService;
 import lombok.Data;
@@ -37,6 +40,9 @@ public class MissionController {
 
     @Autowired
     UsersService usersService;
+
+    @Autowired
+    DealMissionMapper dealMissionMapper;
 
     /**
      *任务列表多条件查询
@@ -196,8 +202,16 @@ public class MissionController {
         try {
             List<Mission> missions = missionService.queryAllMissons(mission);
             missions.forEach(x->{
-                System.out.println("11");
-                //显示名字处理
+                //任务接收人的名字
+                DealMission dealMission = dealMissionMapper.queryOne(x.getId());
+                if(!Objects.isNull(dealMission) && !Objects.isNull(dealMission.getAid())){
+                    Users users1 = usersService.queryOneuser(dealMission.getAid());
+                    if(!Objects.isNull(users1)){
+                        x.setAidName(users1.getName());
+                    }
+                }
+
+                //任务发起人名字处理
                 Users userss = usersService.queryOneuser(x.getPid());
                 x.setPidName(userss.getName());
                 //任务状态数字转换为文字
