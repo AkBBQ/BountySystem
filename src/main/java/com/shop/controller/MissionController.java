@@ -10,7 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -71,7 +73,7 @@ public class MissionController {
             List<Mission> missions = missionService.queryAllMissons(mission);
             //java8 stream流的使用
             missions.stream().forEach(one->{
-                //根据发布人id查到发布人姓名
+                //根据发布人id查到发布人姓名1
                 Users users = usersService.queryOneuser(one.getPid());
                 one.setPidName(users.getName());
                 //任务状态数字转换为文字
@@ -128,8 +130,8 @@ public class MissionController {
             //发布任务的人是当前登陆者
             mission.setPid( users.getId());
             //新建任务的状态可接，未完成
-            mission.setLocking(1);
-            mission.setStatus(0);
+            mission.setLocking(2);
+            mission.setStatus(1);
             //任务当前创建时间
             mission.setCreatTime(new Date());
             missionService.addMission(mission);
@@ -152,5 +154,122 @@ public class MissionController {
             map.put(missionTypeEunm.getCode(),missionTypeEunm.getMsg());
         }
         return map;
+    }
+
+    /**
+     * 查询当前登陆者的任务
+     */
+    @RequestMapping("/queryMyMission")
+    public String queryMyMissions(HttpSession httpSession,Model model,Mission mission){
+        Object userinfo = httpSession.getAttribute("userinfo");
+        Users users=new Users();
+        users= (Users) userinfo;
+        //从session中拿去当前登陆者id
+        mission.setPid(users.getId());
+
+        //多条件查询结果
+        if (mission.getPageNo() < 1) {
+            //初始化查询页码
+            mission.setPageNo(1);
+        }
+        if(!StringUtils.isEmpty(mission.getStatusDesc()) && "未完成".equals(mission.getStatusDesc())){
+            mission.setStatus(1);
+
+        }
+        if(!StringUtils.isEmpty(mission.getStatusDesc()) && "已完成".equals(mission.getStatusDesc()) ){
+            mission.setStatus(2);
+
+        }
+        if(!StringUtils.isEmpty(mission.getLockDesc()) && "锁定".equals(mission.getLockDesc())){
+            mission.setLocking(1);
+
+        }
+        if(!StringUtils.isEmpty(mission.getLockDesc()) && "可接".equals(mission.getLockDesc())){
+            mission.setLocking(2);
+
+        }
+        //每页查询几条
+        mission.setPagesize(3);
+        //偏移量
+        mission.setOffset((mission.getPageNo() - 1) * mission.getPagesize() );
+
+        try {
+            List<Mission> missions = missionService.queryAllMissons(mission);
+            missions.forEach(x->{
+                System.out.println("11");
+                //显示名字处理
+                Users userss = usersService.queryOneuser(x.getPid());
+                x.setPidName(userss.getName());
+                //任务状态数字转换为文字
+                if(x.getStatus() == 1){
+                    x.setStatusDesc("未完成");
+                }
+                if(x.getStatus() == 2){
+                    x.setStatusDesc("完成");
+                }
+                //是否可接转换
+                if(x.getLocking() == 1){
+                    x.setLockDesc("锁定");
+                }
+                if(x.getLocking() == 2){
+                    x.setLockDesc("可接");
+                }
+                //任务类型
+                if(!Objects.isNull(x.getType())){
+
+                    x.setTypeDesc(MissionTypeEunm.getEnum(x.getType()).getMsg());
+                }
+            });
+            //多条件查询总计
+            Integer count = missionService.count(mission);
+            //总共有几页
+            Integer pages = count % mission.getPagesize() > 0 ? count/mission.getPagesize() + 1 :count / mission.getPagesize();
+            model.addAttribute("missions", missions);
+            //总记录数
+            model.addAttribute("count", count);
+            //总页数
+            model.addAttribute("pages", pages);
+            //当前的页数
+            model.addAttribute("currPage" , mission.getPageNo());
+            //回调显示
+            model.addAttribute("queryModel" , mission);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "my_search_help.jsp";
+    }
+
+    /**
+     * 任务修改前的查询
+     */
+    @RequestMapping("/beforeUpdate")
+    public String updateMission(Integer id,Model model){
+        Mission queryMission=new Mission();
+        queryMission.setId(id);
+        List<Mission> missions = missionService.queryAllMissons(queryMission);
+        Mission mission = missions.get(0);
+        mission.setTypeDesc(MissionTypeEunm.getEnum(mission.getType()).getMsg());
+        model.addAttribute("Mission",mission);
+        return "my_mission_update.jsp";
+    }
+
+
+    /**
+     * 任务修改
+     */
+    @RequestMapping("/updateMission")
+    public String updateMission(Mission mission){
+        missionService.updateMission(mission);
+        return "/queryMyMission";
+    }
+
+    /**
+     * 删除任务
+     */
+    @RequestMapping("/delete")
+    public String delete(Integer id){
+        Assert.notNull(id);
+        missionService.delete(id);
+        return "/mission/queryMyMission";
     }
 }

@@ -33,4 +33,23 @@ public class MissionServiceImpl implements MissionService {
 		missionMapper.addMission(mission);
 
 	}
+
+	@Override
+	public void updateMission(Mission mission) {
+		try {
+			missionMapper.updateMission(mission);
+		} catch (Exception e) {
+			System.out.println("修改出错了！");
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void delete(Integer id) {
+		try {
+			missionMapper.delete(id);
+		} catch (Exception e) {
+			throw new RuntimeException("删除失败");
+		}
+	}
 }

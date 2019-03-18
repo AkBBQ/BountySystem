@@ -23,4 +23,15 @@ public interface MissionService {
      *发布任务
      */
     void addMission(Mission mission);
+    /**
+     *修改任务
+     */
+    void updateMission(Mission mission);
+    /**
+     *删除任务
+     */
+    void delete(Integer id);
+
+
+
 }

@@ -22,4 +22,14 @@ public interface MissionMapper {
    */
   void addMission(Mission mission);
 
+  /**
+   * 修改一条任务
+   */
+   void updateMission(Mission mission);
+
+   /**
+    * 删除任务
+    */
+   void delete(Integer id);
+
 }

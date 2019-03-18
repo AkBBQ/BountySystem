@@ -158,11 +158,11 @@
                 <td>${items.content}</td>
                 <td>${items.pidName}</td>
                 <td class="td-manage">
-                    <a title="查看" onclick="x_admin_show('编辑','order-view.html')" href="javascript:;">
-                        <i class="layui-icon">&#xe63c;</i>
-                    </a>
-                    <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                        <i class="layui-icon">&#xe640;</i>
+                    <%--<a title="抢单" onclick="x_admin_show('编辑','order-view.html')" href="javascript:;">--%>
+                        <%--<i class="layui-icon">&#xe66c;</i>--%>
+                    <%--</a>--%>
+                    <a title="抢单" onclick="member_xiadan(this,'要抢单的任务id')" href="javascript:;">
+                        <i class="layui-icon">&#xe66c;</i>
                     </a>
                 </td>
         </tr>
@@ -237,6 +237,15 @@
             //发异步删除数据
             $(obj).parents("tr").remove();
             layer.msg('已删除!', {icon: 1, time: 1000});
+        });
+    }
+
+    /*用户-抢单*/
+    function member_xiadan(obj, id) {
+        layer.confirm('确认要抢单吗？', function (index) {
+            //发异步删除数据
+            $(obj).parents("tr").remove();
+            layer.msg('已抢到该任务!', {icon: 1, time: 1000});
         });
     }
 

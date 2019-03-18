@@ -42,6 +42,11 @@
                 and end_time &lt;= #{endTime}
             </if>
 
+            <if test="pid != null and pid != '' ">
+                and pid = #{pid}
+            </if>
+
+
         </where>
         LIMIT #{offset},#{pagesize}
     </select>
@@ -73,6 +78,9 @@
                 and end_time &lt;= #{endTime}
             </if>
 
+            <if test="pid != null and pid != '' ">
+                and pid = #{pid}
+            </if>
 
         </where>
     </select>
@@ -81,4 +89,20 @@
         insert into mission(type,pid,title,place,content,start_time,end_time,creat_time,status,locking)
         values(#{type},#{pid},#{title},#{place},#{content},#{startTime},#{endTime},#{creatTime},#{status},#{locking} )
     </insert>
+
+    <update id="updateMission" parameterType="Mission">
+        update mission
+
+        set type = #{type},content = #{content},place = #{place},
+        title = #{title},start_time = #{startTime},end_time = #{endTime}
+        where id= #{id}
+
+
+    </update>
+
+    <delete id="delete" parameterType="integer">
+
+      delete from mission
+      where id = #{id}
+    </delete>
 </mapper>

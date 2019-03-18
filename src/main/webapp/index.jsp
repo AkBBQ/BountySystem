@@ -78,7 +78,7 @@ pageEncoding="UTF-8"%>
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="my_search_help.html">
+                        <a _href="mission/queryMyMission">
 
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>我发布的求助</cite>
