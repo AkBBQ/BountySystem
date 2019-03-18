@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mapper.OrderItemsMapper">
+  <resultMap id="BaseResultMap" type="com.shop.model.OrderItems">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="book_id" jdbcType="INTEGER" property="bookId" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <association property="book" javaType="com.shop.model.Book">
+        <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="isbn" jdbcType="VARCHAR" property="isbn" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    </association>
+    
+    
+   
+  </resultMap>
+  
+  <insert id="add" parameterType="com.shop.model.OrderItems">
+      insert into orderitems(order_id,book_id,price,num) values(#{orderId},#{bookId},#{price},#{num}
+      )
+  </insert>
+  
+  <select id="queryAll" parameterType="INTEGER" resultMap="BaseResultMap">
+     select c.username,c.user_id,c.phone,c.address,c.status,c.orderdate,o.order_id ,o.book_id ,o.price,o.num ,
+b.name ,b.isbn ,b.photo ,b.author 
+from orderitems o INNER JOIN book b ON o.book_id = b.id 
+INNER JOIN orders c on o.order_id=c.order_id   where c.user_id=#{userId}
+
+  </select>
+  
+   <select id="queryAllByOid" parameterType="String" resultMap="BaseResultMap">
+  select * from orderitems o INNER JOIN book b on o.book_id=b.id   where order_id=#{orderId}
+  
+  </select>
+ 
+</mapper>
