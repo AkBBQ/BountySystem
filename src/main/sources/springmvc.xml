@@ -29,7 +29,7 @@
 	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
 		<property name="converters">
 			<list>
-				<bean class="com.shop.controller.DateConvert" />
+
 			</list>
 		</property>
 	</bean>
