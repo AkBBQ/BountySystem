@@ -117,7 +117,7 @@
                     <a title="完成" onclick="member_finish(this,'${items.id}')" href="javascript:;">
                     <button class="layui-btn layui-btn-normal layui-btn-xs">完成</button>
                 </a>
-                    <a title="抢单" onclick="member_abandon(this,'${items.id}')" href="javascript:;">
+                    <a title="放弃" onclick="member_abandon(this,'${items.id}')" href="javascript:;">
                         <button class="layui-btn layui-btn-danger layui-btn-xs">放弃</button>
                     </a>
 
@@ -171,13 +171,13 @@
         layer.confirm('确认完成该任务了吗？', function (index) {
             $.ajax({
                 type : "post",
-                url : "../deal/pick",
+                url : "../deal/approval",
                 data :{mid:mid},
                 success:function(){
 
                 },
                 error:function () {
-
+                 alert("请求审核失败!")
                 }
             })
 

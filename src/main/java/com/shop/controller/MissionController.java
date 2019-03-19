@@ -63,6 +63,10 @@ public class MissionController {
                 mission.setStatus(2);
 
             }
+            if(!StringUtils.isEmpty(mission.getStatusDesc()) && "待审核".equals(mission.getStatusDesc()) ){
+                mission.setStatus(3);
+
+            }
             if(!StringUtils.isEmpty(mission.getLockDesc()) && "锁定".equals(mission.getLockDesc())){
                 mission.setLocking(1);
 
@@ -88,6 +92,9 @@ public class MissionController {
                 }
                 if(one.getStatus() == 2){
                     one.setStatusDesc("完成");
+                }
+                if(one.getStatus() == 3){
+                    one.setStatusDesc("待审核");
                 }
                 //是否可接转换
                 if(one.getLocking() == 1){
@@ -186,6 +193,10 @@ public class MissionController {
             mission.setStatus(2);
 
         }
+        if(!StringUtils.isEmpty(mission.getStatusDesc()) && "待审核".equals(mission.getStatusDesc()) ){
+            mission.setStatus(3);
+
+        }
         if(!StringUtils.isEmpty(mission.getLockDesc()) && "锁定".equals(mission.getLockDesc())){
             mission.setLocking(1);
 
@@ -220,6 +231,9 @@ public class MissionController {
                 }
                 if(x.getStatus() == 2){
                     x.setStatusDesc("完成");
+                }
+                if(x.getStatus() == 3){
+                    x.setStatusDesc("待审核");
                 }
                 //是否可接转换
                 if(x.getLocking() == 1){
@@ -285,5 +299,13 @@ public class MissionController {
         Assert.notNull(id);
         missionService.delete(id);
         return "/mission/queryMyMission";
+    }
+
+    /**
+     * 审核任务
+     */
+    @RequestMapping("/approval")
+    public String approval(){
+        return null;
     }
 }

@@ -47,7 +47,8 @@
                 <select name="statusDesc" value="${queryModel}">
                     <option>任务状态</option>
                     <option value="未完成" <c:if test="${'未完成' eq queryModel.statusDesc}">selected</c:if> >未完成</option>
-                    <option value="已完成" <c:if test="${'已】完成' eq queryModel.statusDesc}">selected</c:if>>已完成</option>
+                    <option value="已完成" <c:if test="${'已完成' eq queryModel.statusDesc}">selected</c:if>>已完成</option>
+                    <option value="待审核" <c:if test="${'待审核' eq queryModel.statusDesc}">selected</c:if>>待审核</option>
                 </select>
             </div>
             <div class="layui-input-inline">

@@ -63,4 +63,13 @@ public class DealMissionController {
     public void abandon(Integer mid){
         dealMissionService.abandonMission(mid);
     }
+
+    /**
+     * 任务接收发完成任务提起审批
+     */
+    @ResponseBody
+    @RequestMapping("/approval")
+    public void approval(Integer mid){
+     dealMissionService.finishMission(mid);
+    }
 }

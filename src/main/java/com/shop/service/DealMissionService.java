@@ -31,7 +31,7 @@ public interface DealMissionService {
     void abandonMission(Integer mid);
 
     /**
-     * 完成任务
+     * 完成任务(审核)
      */
     void finishMission(Integer mid);
 }

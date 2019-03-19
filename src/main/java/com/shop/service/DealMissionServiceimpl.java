@@ -9,6 +9,7 @@ import com.shop.model.Users;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -103,6 +104,9 @@ public class DealMissionServiceimpl implements DealMissionService {
                 if (!Objects.isNull(missionVo.getStatus()) && missionVo.getStatus() == 2) {
                     missionVo.setStatusDesc("已完成");
                 }
+                if (!Objects.isNull(missionVo.getStatus()) && missionVo.getStatus() == 3) {
+                    missionVo.setStatusDesc("待审核");
+                }
                 //任务接收人id
                 missionVo.setAid(one.getAid());
                 //任务评星
@@ -146,7 +150,17 @@ public class DealMissionServiceimpl implements DealMissionService {
 
     @Override
     public void finishMission(Integer mid) {
-        //将任务用户表中的任务状态置为完成
+        Assert.notNull(mid,"任务id不能为空");
+        Mission mission = new Mission();
+        mission.setId(mid);
+        //3 为待审核
+        mission.setStatus(3);
+        //将任务用户表中的任务状态置为待审核
+        try {
+            missionService.updateMission(mission);
+        } catch (Exception e) {
+            throw new RuntimeException("任务置为待审核失败",e);
+        }
 
     }
 }

@@ -48,6 +48,7 @@ pageEncoding="UTF-8" %>
           <option>任务状态</option>
           <option value="未完成" <c:if test="${'未完成' eq queryModel.statusDesc}">selected</c:if> >未完成</option>
           <option value="已完成" <c:if test="${'已完成' eq queryModel.statusDesc}">selected</c:if>>已完成</option>
+          <option value="待审核" <c:if test="${'待审核' eq queryModel.statusDesc}">selected</c:if>>待审核</option>
         </select>
       </div>
       <div class="layui-input-inline">
@@ -124,7 +125,15 @@ pageEncoding="UTF-8" %>
         <td>${items.lockDesc}</td>
         <td>${items.content}</td>
         <%--<td>${items.pidName}</td>--%>
-        <td>${items.aidName}</td>
+        <td>
+        <c:if test="${null eq items.aidName}">
+          暂无
+        </c:if>
+          <c:if test="${null ne items.aidName}">
+            ${items.aidName}
+          </c:if>
+
+        </td>
         <td class="td-manage">
             <a title="编辑"  onclick="x_admin_show('编辑','../mission/beforeUpdate?id=${items.id}')" href="javascript:;">
               <i class="layui-icon">&#xe642;</i>
@@ -133,8 +142,11 @@ pageEncoding="UTF-8" %>
           <a title="删除"  onclick="member_del('删除','../mission/delete?id=${items.id}')" href="../mission/delete?id=${items.id}">
           <i class="layui-icon">&#xe640;</i>
         </a>
-          <a title="删除"  onclick="member_del('删除','../mission/delete?id=${items.id}')" href="../mission/delete?id=${items.id}">
+          <c:if test="${'待审核' eq items.statusDesc}">
+
+          <a title="删除"  onclick="x_admin_show('审核','../mission/delete?id=${items.id}')" href="../mission/delete?id=${items.id}">
           <button class="layui-btn">审批</button>
+          </c:if>
           </a>
         </td>
       </tr>
