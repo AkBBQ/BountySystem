@@ -144,7 +144,7 @@ pageEncoding="UTF-8" %>
         </a>
           <c:if test="${'待审核' eq items.statusDesc}">
 
-          <a title="删除"  onclick="x_admin_show('审核','../mission/delete?id=${items.id}')" href="../mission/delete?id=${items.id}">
+          <a title="删除"  onclick="x_admin_show('审核','../mission/approval?id=${items.id}')" href="../mission/approval?id=${items.id}">
           <button class="layui-btn">审批</button>
           </c:if>
           </a>

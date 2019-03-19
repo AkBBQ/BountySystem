@@ -305,7 +305,8 @@ public class MissionController {
      * 审核任务
      */
     @RequestMapping("/approval")
-    public String approval(){
-        return null;
+    public String approval(Integer mid){
+
+        return "my_mission_approval.jsp";
     }
 }

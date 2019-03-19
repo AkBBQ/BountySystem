@@ -10,6 +10,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -86,17 +88,24 @@ public class DealMissionServiceimpl implements DealMissionService {
                 Mission missionQuery = new Mission();
                 missionQuery.setId(one.getMid());
                 List<Mission> missions = missionService.queryAllMissons(missionQuery);
-                Mission missionResult = missions.get(0);
+                Mission missionResult = new Mission();
+                if(!CollectionUtils.isEmpty(missions)){
+                 missionResult = missions.get(0);
+                }
                 //A = B + C(vo对象是二个do对象加起来的)
                 MissionVo missionVo = new MissionVo();
                 BeanUtils.copyProperties(missionResult, missionVo);
                 //根据发起人id查找发起人姓名
-                Users users1 = usersService.queryOneuser(missionVo.getPid());
-                if (!Objects.isNull(users1)) {
-                    missionVo.setPidName(users1.getName());
+                if (null != missionVo.getPid()) {
+                    Users users1 = usersService.queryOneuser(missionVo.getPid());
+                    if (!Objects.isNull(users1)) {
+                        missionVo.setPidName(users1.getName());
+                    }
                 }
                 //任务类型转描述
+                if(!Objects.isNull(missionVo.getType())){
                 missionVo.setTypeDesc(MissionTypeEunm.getEnum(missionVo.getType()).getMsg());
+                }
                 //任务状态转描述
                 if (!Objects.isNull(missionVo.getStatus()) && missionVo.getStatus() == 1) {
                     missionVo.setStatusDesc("未完成");
