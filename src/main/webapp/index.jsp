@@ -94,7 +94,7 @@ pageEncoding="UTF-8"%>
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="my_help.html">
+                        <a _href="deal/query">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>我接受的求助</cite>
                         </a>

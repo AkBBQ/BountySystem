@@ -1,12 +1,16 @@
 package com.shop.controller;
 
 import com.shop.Eunm.MissionTypeEunm;
+import com.shop.mapper.DealMissionMapper;
+import com.shop.model.DealMission;
 import com.shop.model.Mission;
 import com.shop.model.Users;
+import com.shop.service.DealMissionService;
 import com.shop.service.MissionService;
 import com.shop.service.UsersService;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,6 +42,9 @@ public class MissionController {
     @Autowired
     UsersService usersService;
 
+    @Autowired
+    DealMissionMapper dealMissionMapper;
+
     /**
      *任务列表多条件查询
      */
@@ -55,6 +62,10 @@ public class MissionController {
             }
             if(!StringUtils.isEmpty(mission.getStatusDesc()) && "已完成".equals(mission.getStatusDesc()) ){
                 mission.setStatus(2);
+
+            }
+            if(!StringUtils.isEmpty(mission.getStatusDesc()) && "待审核".equals(mission.getStatusDesc()) ){
+                mission.setStatus(3);
 
             }
             if(!StringUtils.isEmpty(mission.getLockDesc()) && "锁定".equals(mission.getLockDesc())){
@@ -82,6 +93,9 @@ public class MissionController {
                 }
                 if(one.getStatus() == 2){
                     one.setStatusDesc("完成");
+                }
+                if(one.getStatus() == 3){
+                    one.setStatusDesc("待审核");
                 }
                 //是否可接转换
                 if(one.getLocking() == 1){
@@ -180,6 +194,10 @@ public class MissionController {
             mission.setStatus(2);
 
         }
+        if(!StringUtils.isEmpty(mission.getStatusDesc()) && "待审核".equals(mission.getStatusDesc()) ){
+            mission.setStatus(3);
+
+        }
         if(!StringUtils.isEmpty(mission.getLockDesc()) && "锁定".equals(mission.getLockDesc())){
             mission.setLocking(1);
 
@@ -196,8 +214,16 @@ public class MissionController {
         try {
             List<Mission> missions = missionService.queryAllMissons(mission);
             missions.forEach(x->{
-                System.out.println("11");
-                //显示名字处理
+                //任务接收人的名字
+                DealMission dealMission = dealMissionMapper.queryOne(x.getId());
+                if(!Objects.isNull(dealMission) && !Objects.isNull(dealMission.getAid())){
+                    Users users1 = usersService.queryOneuser(dealMission.getAid());
+                    if(!Objects.isNull(users1)){
+                        x.setAidName(users1.getName());
+                    }
+                }
+
+                //任务发起人名字处理
                 Users userss = usersService.queryOneuser(x.getPid());
                 x.setPidName(userss.getName());
                 //任务状态数字转换为文字
@@ -206,6 +232,9 @@ public class MissionController {
                 }
                 if(x.getStatus() == 2){
                     x.setStatusDesc("完成");
+                }
+                if(x.getStatus() == 3){
+                    x.setStatusDesc("待审核");
                 }
                 //是否可接转换
                 if(x.getLocking() == 1){
@@ -271,5 +300,14 @@ public class MissionController {
         Assert.notNull(id);
         missionService.delete(id);
         return "/mission/queryMyMission";
+    }
+
+    /**
+     * 审核任务
+     */
+    @RequestMapping("/approval")
+    public String approval(Integer id, Model model){
+         model.addAttribute("missionId",id);
+        return "my_mission_approval.jsp";
     }
 }

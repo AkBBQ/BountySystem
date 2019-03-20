@@ -33,7 +33,7 @@ pageEncoding="UTF-8" %>
           <cite>导航元素</cite></a>
       </span>
   <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
-     href="javascript:location.replace(location.href);" title="刷新">
+     href="javascript:location.replace(location.href);" title="刷新" id="reflash">
     <i class="layui-icon" style="line-height:30px">ဂ</i></a>
 </div>
 <div class="x-body">
@@ -48,6 +48,7 @@ pageEncoding="UTF-8" %>
           <option>任务状态</option>
           <option value="未完成" <c:if test="${'未完成' eq queryModel.statusDesc}">selected</c:if> >未完成</option>
           <option value="已完成" <c:if test="${'已完成' eq queryModel.statusDesc}">selected</c:if>>已完成</option>
+          <option value="待审核" <c:if test="${'待审核' eq queryModel.statusDesc}">selected</c:if>>待审核</option>
         </select>
       </div>
       <div class="layui-input-inline">
@@ -100,18 +101,20 @@ pageEncoding="UTF-8" %>
       <th>任务状态</th>
       <th>是否可接</th>
       <th>详细说明</th>
-      <th>任务发起人</th>
+      <%--<th>任务发起人</th>--%>
+      <th>任务接受人</th>
       <th>操作</th>
     </tr>
     </thead>
     <tbody>
 
-    <c:forEach items="${missions}" var="items">
+    <c:forEach items="${missions}" var="items" varStatus = "status">
       <tr>
         <%--<td>--%>
         <%--<div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i--%>
           <%--class="layui-icon">&#xe605;</i></div>--%>
         <%--</td>--%>
+          <%--<td>${status.count}</td>--%>
         <td>${items.id}</td>
         <td>${items.title}</td>
         <td>${items.typeDesc}</td>
@@ -121,14 +124,29 @@ pageEncoding="UTF-8" %>
         <td>${items.statusDesc}</td>
         <td>${items.lockDesc}</td>
         <td>${items.content}</td>
-        <td>${items.pidName}</td>
+        <%--<td>${items.pidName}</td>--%>
+        <td>
+        <c:if test="${null eq items.aidName}">
+          暂无
+        </c:if>
+          <c:if test="${null ne items.aidName}">
+            ${items.aidName}
+          </c:if>
+
+        </td>
         <td class="td-manage">
             <a title="编辑"  onclick="x_admin_show('编辑','../mission/beforeUpdate?id=${items.id}')" href="javascript:;">
               <i class="layui-icon">&#xe642;</i>
             </a>
 
           <a title="删除"  onclick="member_del('删除','../mission/delete?id=${items.id}')" href="../mission/delete?id=${items.id}">
-            <i class="layui-icon">&#xe640;</i>
+          <i class="layui-icon">&#xe640;</i>
+        </a>
+          <c:if test="${'待审核' eq items.statusDesc}">
+
+          <a title="审核"  onclick="x_admin_show('审核','../mission/approval?mid=${items.id}')" href="../mission/approval?id=${items.id}">
+          <button class="layui-btn">审批</button>
+          </c:if>
           </a>
         </td>
       </tr>
@@ -203,6 +221,7 @@ pageEncoding="UTF-8" %>
             //发异步删除数据
             $(obj).parents("tr").remove();
             layer.msg('已删除!', {icon: 1, time: 1000});
+            document.getElementById("reflash").click();
         });
     }
 

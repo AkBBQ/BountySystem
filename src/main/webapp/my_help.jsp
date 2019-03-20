@@ -38,51 +38,47 @@
 </div>
 <div class="x-body">
     <div class="layui-row">
-        <form action="/mission/queryAll" method="post" name="postRequest">
-            <input type="hidden" name="pageNo" id="pageNo" value="${queryModel.pageNo}">
-            <div class="layui-input-inline">
-            <input type="text" name="id" placeholder="需求编号" class="layui-input" value="${queryModel.id}">
-            </div>
-            <div class="layui-input-inline">
-                <select name="statusDesc" value="${queryModel}">
-                    <option>任务状态</option>
-                    <option value="未完成" <c:if test="${'未完成' eq queryModel.statusDesc}">selected</c:if> >未完成</option>
-                    <option value="已完成" <c:if test="${'已完成' eq queryModel.statusDesc}">selected</c:if>>已完成</option>
-                    <option value="待审核" <c:if test="${'待审核' eq queryModel.statusDesc}">selected</c:if>>待审核</option>
-                </select>
-            </div>
-            <div class="layui-input-inline">
-                <select name="lockDesc">
-                    <option>是否可接</option>
-                    <option value="锁定" <c:if test="${'锁定' eq queryModel.lockDesc}"> selected </c:if> >锁定</option>
-                    <option value="可接" <c:if test="${'可接' eq queryModel.lockDesc}"> selected</c:if> >可接</option>
-                </select>
-            </div>
+        <%--<form action="/mission/queryAll" method="post" name="postRequest">--%>
+            <%--<input type="hidden" name="pageNo" id="pageNo" value="${queryModel.pageNo}">--%>
+            <%--<div class="layui-input-inline">--%>
+            <%--<input type="text" name="id" placeholder="需求编号" class="layui-input" value="${queryModel.id}">--%>
+            <%--</div>--%>
+            <%--<div class="layui-input-inline">--%>
+                <%--<select name="statusDesc" value="${queryModel}">--%>
+                    <%--<option>任务状态</option>--%>
+                    <%--<option value="未完成" <c:if test="${'未完成' eq queryModel.statusDesc}">selected</c:if> >未完成</option>--%>
+                    <%--<option value="已完成" <c:if test="${'已完成' eq queryModel.statusDesc}">selected</c:if>>已完成</option>--%>
+                <%--</select>--%>
+            <%--</div>--%>
+            <%--<div class="layui-input-inline">--%>
+                <%--<select name="lockDesc">--%>
+                    <%--<option>是否可接</option>--%>
+                    <%--<option value="锁定" <c:if test="${'锁定' eq queryModel.lockDesc}"> selected </c:if> >锁定</option>--%>
+                    <%--<option value="可接" <c:if test="${'可接' eq queryModel.lockDesc}"> selected</c:if> >可接</option>--%>
+                <%--</select>--%>
+            <%--</div>--%>
 
-            <div class="layui-input-inline">
+            <%--<div class="layui-input-inline">--%>
 
-                <input class="layui-input"  placeholder="开始日" name="startTime" id="startTime"
-                      <c:if test="${null != queryModel.startTime}">
-                       value="<fmt:formatDate value="${queryModel.startTime}" pattern="yyyy-MM-dd"/>"
-                      </c:if>
-                />
+                <%--<input class="layui-input"  placeholder="开始日" name="startTime" id="startTime"--%>
+                      <%--<c:if test="${null != queryModel.startTime}">--%>
+                       <%--value="<fmt:formatDate value="${queryModel.startTime}" pattern="yyyy-MM-dd"/>"--%>
+                      <%--</c:if>--%>
+                <%--/>--%>
 
-            </div>
-            <div class="layui-input-inline">
-            <input class="layui-input"  placeholder="截止日" name="endTime" id="endTime"
-                   <c:if test="${ null != queryModel.endTime}">
-                   value="<fmt:formatDate value="${queryModel.endTime}" pattern="yyyy-MM-dd"/>"
-                   </c:if>
-            />
-            </div>
-            <button class="layui-btn" type="submit"><i class="layui-icon">&#xe615;</i></button>
-        </form>
+            <%--</div>--%>
+            <%--<div class="layui-input-inline">--%>
+            <%--<input class="layui-input"  placeholder="截止日" name="endTime" id="endTime"--%>
+                   <%--<c:if test="${ null != queryModel.endTime}">--%>
+                   <%--value="<fmt:formatDate value="${queryModel.endTime}" pattern="yyyy-MM-dd"/>"--%>
+                   <%--</c:if>--%>
+            <%--/>--%>
+            <%--</div>--%>
+            <%--<button class="layui-btn" type="submit"><i class="layui-icon">&#xe615;</i></button>--%>
+        <%--</form>--%>
 
     </div>
     <xblock>
-
-        <button class="layui-btn" onclick="x_admin_show('发布需求','../mission_add.html')"><i class="layui-icon"></i>发布求助
-        </button>
         <span class="x-right" style="line-height:40px">共有数据：${count} 条 </span>
     </xblock>
     <table class="layui-table">
@@ -99,15 +95,14 @@
             <th>开始时间</th>
             <th>结束时间</th>
             <th>任务状态</th>
-            <th>是否可接</th>
             <th>详细说明</th>
             <th>任务发起人</th>
-            <th>操作(接任务)</th>
+            <th>操作</th>
         </tr>
         </thead>
         <tbody>
 
-            <c:forEach items="${missions}" var="items" varStatus = "status">
+            <c:forEach items="${Results}" var="items" varStatus = "status">
                 <%--<td>${status.count}</td>--%>
                 <td>${items.id}</td>
                 <td>${items.title}</td>
@@ -116,21 +111,17 @@
                 <td><fmt:formatDate value="${items.startTime}" pattern="yyyy-MM-dd"/></td>
                 <td><fmt:formatDate value="${items.endTime}" pattern="yyyy-MM-dd"/></td>
                 <td>${items.statusDesc}</td>
-                <td>${items.lockDesc}</td>
                 <td>${items.content}</td>
                 <td>${items.pidName}</td>
                 <td class="td-manage">
-                    <c:if test="${'可接' eq items.lockDesc and sessionScope.userinfo.name ne items.pidName}">
-
-                    <a title="抢单" onclick="member_xiadan(this,'${items.id}','${items.pid}')" href="javascript:;">
-                        <i class="layui-icon">&#xe66c;</i>
+                    <a title="完成" onclick="member_finish(this,'${items.id}')" href="javascript:;">
+                    <button class="layui-btn layui-btn-normal layui-btn-xs">完成</button>
+                </a>
+                    <a title="放弃" onclick="member_abandon(this,'${items.id}')" href="javascript:;">
+                        <button class="layui-btn layui-btn-danger layui-btn-xs">放弃</button>
                     </a>
-                    </c:if>
 
-                    <c:if test="${'锁定' eq items.lockDesc or sessionScope.userinfo.name eq items.pidName}">
 
-                        <button class="layui-btn layui-btn-disabled">不可接</button>
-                    </c:if>
                 </td>
         </tr>
             </c:forEach>
@@ -175,25 +166,51 @@
     });
 
 
-    /*用户-抢单*/
-    function member_xiadan(obj,mid,pid) {
-        layer.confirm('确认要抢单吗？', function (index) {
+    /*用户-完成*/
+    function member_finish(obj,mid) {
+        layer.confirm('确认完成该任务了吗？', function (index) {
             $.ajax({
                 type : "post",
-                url : "../deal/pick",
-                data :{mid:mid,pid:pid},
+                url : "../deal/approval",
+                data :{mid:mid},
                 success:function(){
 
                 },
                 error:function () {
+                 alert("请求审核失败!")
+                }
+            })
 
+            // //发异步删除数据
+            // $(obj).parents("tr").remove();
+
+
+            layer.msg('已经通知任务发起人进行审核!', {icon: 1, time: 1000});
+            document.getElementById("reflash").click();
+        });
+    }
+
+    /*放弃任务*/
+    function member_abandon(obj,mid) {
+        layer.confirm('确定放弃该任务吗？', function (index) {
+            $.ajax({
+                type : "post",
+                url : "/deal/abandon",
+                data :{mid:mid},
+                success:function(){
+
+            layer.msg('已删除该任务!', {icon: 1, time: 1000});
+        document.getElementById("reflash").click();
+            //发异步删除数据
+            $(obj).parents("tr").remove();
+                },
+                error:function (err) {
+                 alert("放弃该任务失败!")
                 }
             })
 
 
 
-            layer.msg('已抢到该任务!', {icon: 1, time: 1000});
-            document.getElementById("reflash").click();
         });
     }
 </script>
@@ -212,14 +229,6 @@
         document.postRequest.submit();
     }
 
-</script>
-
-
-<script type="text/javascript">
-
-    function run(){
-        document.getElementById("reflash").click();
-    }
 </script>
 </body>
 

@@ -93,8 +93,40 @@
     <update id="updateMission" parameterType="Mission">
         update mission
 
-        set type = #{type},content = #{content},place = #{place},
-        title = #{title},start_time = #{startTime},end_time = #{endTime}
+        <set>
+            <if test="type != null and type != ''">
+                type = #{type},
+            </if>
+
+            <if test="content != null and content != ''">
+                content = #{content},
+            </if>
+
+            <if test="place != null and place != ''">
+                place = #{place},
+            </if>
+
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+
+            <if test="startTime != null and startTime != ''">
+                start_time = #{startTime},
+            </if>
+
+            <if test="endTime != null and endTime != ''">
+                end_time = #{endTime},
+            </if>
+
+            <if test="locking != null and locking != ''">
+                locking = #{locking},
+            </if>
+
+            <if test="status != null and status != ''">
+                status = #{status}
+            </if>
+
+        </set>
         where id= #{id}
 
 

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mapper.DealMissionMapper">
+    <resultMap id="BaseResultMap" type="com.shop.model.DealMission">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="mid" jdbcType="INTEGER" property="mid"/>
+        <result column="pid" jdbcType="INTEGER" property="pid"/>
+        <result column="aid" jdbcType="INTEGER" property="aid"/>
+        <result column="star" jdbcType="INTEGER" property="star"/>
+        <result column="star_desc" jdbcType="VARCHAR" property="starDesc"/>
+        <result column="take_time" jdbcType="DATE" property="takeTime"/>
+        <result column="end_time" jdbcType="DATE" property="endTime"/>
+    </resultMap>
+
+    <insert id="add" parameterType="DealMission">
+        insert into deal_mission(mid,pid,aid,take_time)
+        values (#{mid},#{pid},#{aid},#{takeTime})
+    </insert>
+
+    <select id="queryAll" parameterType="DealMission" resultType="DealMission">
+        select * from deal_mission
+        where aid = #{aid}
+        LIMIT #{offset},#{pagesize}
+    </select>
+
+    <select id="count" parameterType="DealMission" resultType="integer">
+        select count(*) from deal_mission
+        where aid = #{aid}
+    </select>
+
+    <delete id="delete" parameterType="integer">
+        delete from deal_mission
+        where mid = #{mid}
+    </delete>
+
+    <update id="update" parameterType="DealMission">
+        update deal_mission
+        <set>
+            <if test="star != null">
+            star = #{star},
+            </if>
+
+            <if test="starDesc != null and starDesc !=''">
+                star_desc = #{starDesc},
+            </if>
+
+            <if test="endTime != null and endTime !=''">
+                end_time = #{endTime}
+            </if>
+        </set>
+        where mid = #{mid}
+    </update>
+
+    <select id="queryOne" parameterType="integer" resultType="DealMission">
+        select * from deal_mission
+        where mid = #{mid}
+    </select>
+</mapper>

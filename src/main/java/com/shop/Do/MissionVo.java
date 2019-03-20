@@ -1,10 +1,14 @@
-package com.shop.model;
+package com.shop.Do;
 
 import lombok.Data;
+
 import java.util.Date;
 
+/**
+ * 我接的任务查询vo对象 前端交互用的对象
+ */
 @Data
-public class Mission {
+public class MissionVo {
     /**
      * 主键id
      */
@@ -38,7 +42,7 @@ public class Mission {
      */
     public String place;
     /**
-     * 任务状态(1,未完成;2,完成;3,待审核)
+     * 任务状态(1,未完成;2,完成)
      */
     public Integer status;
     /**
@@ -62,24 +66,28 @@ public class Mission {
      */
     public String pidName;
     /**
-     * 任务接收人姓名
-     */
-    public String aidName;
-    /**
      * 任务主题
      */
     public String title;
     /**
-     * 每页查询数量
+     * 任务接收人id
      */
-    public int pagesize = 10;
+    public int aid;
     /**
-     * 第几页
+     * 任务评分
      */
-    public int pageNo;
+    public int star;
     /**
-     * 偏移量
+     * 任务评价
      */
-    public int offset;
+    public String starDesc;
+    /**
+     * 接任务时间
+     */
+    public Date takeTime;
+    /**
+     * 任务完成时间
+     */
+    public Date finishTime;
 
 }
