@@ -76,7 +76,7 @@ public class DealMissionServiceimpl implements DealMissionService {
         if (dealMission.getPageNo() < 1 || Objects.isNull(dealMission.getPageNo())) {
             dealMission.setPageNo(1);
         }
-        dealMission.setPagesize(3);
+        dealMission.setPagesize(10);
         dealMission.setOffset((dealMission.getPageNo() - 1) * dealMission.getPagesize());
 
         try {
