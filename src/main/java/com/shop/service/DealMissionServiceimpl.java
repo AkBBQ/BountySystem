@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -170,6 +169,14 @@ public class DealMissionServiceimpl implements DealMissionService {
         } catch (Exception e) {
             throw new RuntimeException("任务置为待审核失败",e);
         }
+
+    }
+
+    @Override
+    public void approval(DealMission dealMission) {
+
+        //更新该任务的评价与评星
+        dealMissionMapper.update(dealMission);
 
     }
 }

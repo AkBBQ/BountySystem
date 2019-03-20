@@ -33,9 +33,22 @@
         where mid = #{mid}
     </delete>
 
-    <update id="update" parameterType="integer">
+    <update id="update" parameterType="DealMission">
         update deal_mission
-        set
+        <set>
+            <if test="star != null">
+            star = #{star},
+            </if>
+
+            <if test="starDesc != null and starDesc !=''">
+                star_desc = #{starDesc},
+            </if>
+
+            <if test="endTime != null and endTime !=''">
+                end_time = #{endTime}
+            </if>
+        </set>
+        where mid = #{mid}
     </update>
 
     <select id="queryOne" parameterType="integer" resultType="DealMission">

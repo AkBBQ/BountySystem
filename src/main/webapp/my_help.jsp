@@ -33,7 +33,7 @@
           <cite>导航元素</cite></a>
       </span>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
-       href="javascript:location.replace(location.href);" title="刷新">
+       href="javascript:location.replace(location.href);" title="刷新" id="reflash">
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
 </div>
 <div class="x-body">
@@ -186,6 +186,7 @@
 
 
             layer.msg('已经通知任务发起人进行审核!', {icon: 1, time: 1000});
+            document.getElementById("reflash").click();
         });
     }
 
@@ -199,6 +200,7 @@
                 success:function(){
 
             layer.msg('已删除该任务!', {icon: 1, time: 1000});
+        document.getElementById("reflash").click();
             //发异步删除数据
             $(obj).parents("tr").remove();
                 },

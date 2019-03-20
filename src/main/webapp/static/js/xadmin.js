@@ -195,6 +195,7 @@ function x_admin_show(title,url,w,h){
 function x_admin_close(){
     var index = parent.layer.getFrameIndex(window.name);
     parent.layer.close(index);
+    document.getElementById("reflash").click();
 }
 
 

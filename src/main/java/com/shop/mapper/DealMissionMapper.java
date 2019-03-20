@@ -30,7 +30,7 @@ public interface DealMissionMapper {
     /**
      * 完成任务(更新任务状态)
      */
-    void update(Integer mid);
+    void update(DealMission dealMission);
     /**
      * 根据任务id找任务
      */

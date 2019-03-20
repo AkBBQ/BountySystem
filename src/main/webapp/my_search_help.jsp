@@ -33,7 +33,7 @@ pageEncoding="UTF-8" %>
           <cite>导航元素</cite></a>
       </span>
   <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
-     href="javascript:location.replace(location.href);" title="刷新">
+     href="javascript:location.replace(location.href);" title="刷新" id="reflash">
     <i class="layui-icon" style="line-height:30px">ဂ</i></a>
 </div>
 <div class="x-body">
@@ -144,7 +144,7 @@ pageEncoding="UTF-8" %>
         </a>
           <c:if test="${'待审核' eq items.statusDesc}">
 
-          <a title="删除"  onclick="x_admin_show('审核','../mission/approval?id=${items.id}')" href="../mission/approval?id=${items.id}">
+          <a title="审核"  onclick="x_admin_show('审核','../mission/approval?mid=${items.id}')" href="../mission/approval?id=${items.id}">
           <button class="layui-btn">审批</button>
           </c:if>
           </a>
@@ -221,6 +221,7 @@ pageEncoding="UTF-8" %>
             //发异步删除数据
             $(obj).parents("tr").remove();
             layer.msg('已删除!', {icon: 1, time: 1000});
+            document.getElementById("reflash").click();
         });
     }
 

@@ -10,6 +10,7 @@ import com.shop.service.MissionService;
 import com.shop.service.UsersService;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -305,8 +306,8 @@ public class MissionController {
      * 审核任务
      */
     @RequestMapping("/approval")
-    public String approval(Integer mid){
-
+    public String approval(Integer id, Model model){
+         model.addAttribute("missionId",id);
         return "my_mission_approval.jsp";
     }
 }

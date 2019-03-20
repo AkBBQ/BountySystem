@@ -3,10 +3,13 @@ package com.shop.controller;
 
 import com.shop.Do.MissionVo;
 import com.shop.model.DealMission;
+import com.shop.model.Mission;
 import com.shop.service.DealMissionService;
+import com.shop.service.MissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -21,6 +24,9 @@ import java.util.List;
 public class DealMissionController {
     @Autowired
     DealMissionService dealMissionService;
+
+    @Autowired
+    MissionService missionService;
 
     /**
      * 接收一条发布的任务
@@ -69,7 +75,58 @@ public class DealMissionController {
      */
     @ResponseBody
     @RequestMapping("/approval")
-    public void approval(Integer mid){
-     dealMissionService.finishMission(mid);
+    public void approval(Integer mid) {
+        dealMissionService.finishMission(mid);
+    }
+    /**
+     * 任发起人审批任务
+     */
+    @RequestMapping("/doApproval")
+    public String doApproval(Integer mid,String isPass,String star,String starDesc){
+        if(StringUtils.isEmpty(isPass)){
+           throw new RuntimeException("是否通过参数不能为空");
+        }
+        //因为radio value传来的是String类型 无法用Integer接收 得做一次转换
+        Integer starr = null;
+        if("一星".equals(star)){
+            starr = 1;
+        }
+        if("二星".equals(star)){
+            starr = 2;
+        }
+        if("三星".equals(star)){
+            starr = 3;
+        }
+        if("四星".equals(star)){
+            starr = 4;
+        }
+        if("五星".equals(star)){
+            starr = 5;
+        }
+
+        DealMission dealMission = new DealMission();
+        dealMission.setMid(mid);
+        dealMission.setStar(starr);
+        if(!StringUtils.isEmpty(starDesc)){
+        dealMission.setStarDesc(starDesc);
+        }
+
+        dealMissionService.approval(dealMission);
+
+        //处理misson表的数据
+        Mission mission = new Mission();
+        mission.setId(mid);
+
+        if("通过".equals(isPass)){
+            //将任务状态置为已完成
+            mission.setStatus(2);
+        }
+        if("不通过".equals(isPass)){
+            //任务状态还是未完成
+        }
+        //更新任务表中的任务状态
+        missionService.updateMission(mission);
+
+        return "./query";
     }
 }

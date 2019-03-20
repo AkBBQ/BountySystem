@@ -26,42 +26,40 @@
   </head>
   <body>
     <div class="x-body">
-        <form action="../mission/updateMission" method="post">
+        <form action="../deal/doApproval" method="post">
           <div class="layui-form-item">
-              <input type="hidden" name="id" value="${Mission.id}" id="id">
-              <label for="title" class="layui-form-label">
-                  <span class="x-red">*</span>任务标题
+              <input type="hidden" name="mid" value="${missionId}" id="id">
+              <label  class="layui-form-label">
+                  <span class="x-red">*</span>是否通过
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="title" name="title" required="" lay-verify="required"
-                  autocomplete="off" value="${Mission.title}" class="layui-input">
+                  <div class="layui-input-inline">
+
+                  <label><input type="radio"  value = "通过"  name="isPass" checked="checked">通过</label>
+                  <label><input type="radio"  value = "不通过" name="isPass" >不通过</label>
+                  </div>
               </div>
           </div>
           <div class="layui-form-item">
               <label for="type" class="layui-form-label">
-                  <span class="x-red">*</span>任务类型
+                  <span class="x-red">*</span>任务评星
               </label>
               <div class="layui-input-inline">
-                  <select id="type" name="type">
-                   <option value="${Mission.type}" selected="selected">${Mission.typeDesc}</option>
+                  <select id="type" name="star">
+                      <option>一星</option>
+                      <option>二星</option>
+                      <option>三星</option>
+                      <option>四星</option>
+                      <option>五星</option>
                   </select>
-              </div>
-          </div>
-          <div class="layui-form-item">
-              <label for="place" class="layui-form-label">
-                  <span class="x-red">*</span>任务地点
-              </label>
-              <div class="layui-input-inline">
-                  <input type="text" value="${Mission.place}" id="place" name="place"
-                  class="layui-input">
               </div>
           </div>
             <div class="layui-form-item">
                 <label for="content" class="layui-form-label">
-                    <span class="x-red">*</span>任务描述
+                    <span class="x-red">*</span>任务评价
                 </label>
                 <div class="layui-input-inline">
-                    <textarea name="content" id="content" rows="5" cols="60">
+                    <textarea name="starDesc" id="content" rows="5" cols="60">
 
                     </textarea>
                 </div>
@@ -91,24 +89,6 @@
       });
   </script>
 
-  <script>
-      $('#type').click(function () {
-          $.ajax({
-              url:"/mission/missionTypeQuery",
-              type:"get",
-              success: function(result){
-
-                  var data = eval(result)
-                  var nameOpt = "<option value='' selected='selected'>--请选择--</option>";
-                  for(var k in data) {
-                      nameOpt+="<option value='"+k+"'>"+data[k]+"</option>";
-                  }
-                  $('#type').html(nameOpt);
-              },
-              error: function(){}
-          });
-      })
-  </script>
   </body>
 
 </html>

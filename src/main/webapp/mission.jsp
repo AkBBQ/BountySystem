@@ -33,7 +33,7 @@
           <cite>导航元素</cite></a>
       </span>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
-       href="javascript:location.replace(location.href);" title="刷新">
+       href="javascript:location.replace(location.href);" title="刷新" id="reflash">
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
 </div>
 <div class="x-body">
@@ -193,6 +193,7 @@
 
 
             layer.msg('已抢到该任务!', {icon: 1, time: 1000});
+            document.getElementById("reflash").click();
         });
     }
 </script>
@@ -211,6 +212,14 @@
         document.postRequest.submit();
     }
 
+</script>
+
+
+<script type="text/javascript">
+
+    function run(){
+        document.getElementById("reflash").click();
+    }
 </script>
 </body>
 
