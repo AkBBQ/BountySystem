@@ -148,8 +148,9 @@ public class DealMissionServiceimpl implements DealMissionService {
         Mission mission = new Mission();
         mission.setId(mid);
         mission.setLocking(2);
+        mission.setStatus(1);
         try {
-            //将任务置为锁定状态
+            //将任务置为可接状态,并且把任务状态置为未完成
             missionService.updateMission(mission);
             //同时删除任务用户表中的数据
             dealMissionMapper.delete(mid);
