@@ -115,6 +115,9 @@ public class DealMissionServiceimpl implements DealMissionService {
                 if (!Objects.isNull(missionVo.getStatus()) && missionVo.getStatus() == 3) {
                     missionVo.setStatusDesc("待审核");
                 }
+                if (!Objects.isNull(missionVo.getStatus()) && missionVo.getStatus() == 4) {
+                    missionVo.setStatusDesc("审核未通过");
+                }
                 //任务接收人id
                 missionVo.setAid(one.getAid());
                 //任务评星
@@ -178,5 +181,10 @@ public class DealMissionServiceimpl implements DealMissionService {
         //更新该任务的评价与评星
         dealMissionMapper.update(dealMission);
 
+    }
+
+    @Override
+    public DealMission queryOne(DealMission dealMission) {
+        return dealMissionMapper.queryOne(dealMission.getMid());
     }
 }

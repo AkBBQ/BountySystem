@@ -38,7 +38,7 @@ public class Mission {
      */
     public String place;
     /**
-     * 任务状态(1,未完成;2,完成;3,待审核)
+     * 任务状态(1,未完成;2,完成;3,待审核;4,审核未通过)
      */
     public Integer status;
     /**

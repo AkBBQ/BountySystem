@@ -7,7 +7,6 @@ import java.util.Date;
 /**
  * 任务接收人实体类
  */
-
 @Data
 public class DealMission {
     /**
