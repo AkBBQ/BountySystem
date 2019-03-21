@@ -122,11 +122,25 @@ public class DealMissionController {
             mission.setStatus(2);
         }
         if("不通过".equals(isPass)){
-            //任务状态还是未完成
+            //任务状态为未通过
+            mission.setStatus(4);
         }
         //更新任务表中的任务状态
         missionService.updateMission(mission);
 
         return "./query";
+    }
+
+    /**
+     * 查看评价
+     */
+    @RequestMapping("evaluate")
+    public String showEvaluate(Integer id,Model model){
+        DealMission dealMission = new DealMission();
+        dealMission.setMid(id);
+        DealMission dealMission1 = dealMissionService.queryOne(dealMission);
+        model.addAttribute("result",dealMission1);
+        return "evaluate.jsp";
+
     }
 }

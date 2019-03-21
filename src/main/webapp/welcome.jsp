@@ -1,6 +1,8 @@
-<!DOCTYPE html>
-<html>
-    <head>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<html lang="en">
+<head>
         <meta charset="UTF-8">
         <title>欢迎页面-X-admin2.0</title>
         <meta name="renderer" content="webkit">
@@ -26,28 +28,49 @@
                                             <a href="javascript:;" class="x-admin-backlog-body">
                                                 <h3>可接任务</h3>
                                                 <p>
-                                                    <cite>66</cite></p>
+                                                    <cite>
+                                                        <c:if test="${sessionScope.canTake!=null}">
+                                                           ${sessionScope.canTake}
+                                                        </c:if>
+
+                                                    </cite></p>
                                             </a>
                                         </li>
                                         <li class="layui-col-xs2">
                                             <a href="javascript:;" class="x-admin-backlog-body">
                                                 <h3>我发布的求助</h3>
                                                 <p>
-                                                    <cite>12</cite></p>
+                                                    <cite>
+                                                        <c:if test="${sessionScope.mySearchHelp!=null}">
+                                                        ${sessionScope.mySearchHelp}
+                                                    </c:if>
+                                                    </cite>
+                                                </p>
                                             </a>
                                         </li>
                                         <li class="layui-col-xs2">
                                             <a href="javascript:;" class="x-admin-backlog-body">
-                                                <h3>等待完成确定的审核任务</h3>
+                                                <h3>等待我审核任务</h3>
                                                 <p>
-                                                    <cite>12</cite></p>
+                                                    <cite>
+                                                        <c:if test="${sessionScope.waitMeApproval!=null}">
+                                                            ${sessionScope.waitMeApproval}
+                                                        </c:if>
+                                                    </cite>
+                                                </p>
                                             </a>
                                         </li>
                                         <li class="layui-col-xs2">
                                             <a href="javascript:;" class="x-admin-backlog-body">
-                                                <h3>我完成的求助</h3>
+                                                <h3>我接收的任务</h3>
                                                 <p>
-                                                    <cite>99</cite></p>
+
+                                                    <cite>
+                                                        <c:if test="${sessionScope.myAccept!=null}">
+                                                           ${sessionScope.myAccept}
+                                                        </c:if>
+                                                    </cite>
+                                                </p>
                                             </a>
                                         </li>
                                     </ul>

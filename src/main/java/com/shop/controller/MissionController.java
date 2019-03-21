@@ -97,6 +97,9 @@ public class MissionController {
                 if(one.getStatus() == 3){
                     one.setStatusDesc("待审核");
                 }
+                if(one.getStatus() == 4){
+                    one.setStatusDesc("审核未通过");
+                }
                 //是否可接转换
                 if(one.getLocking() == 1){
                     one.setLockDesc("锁定");
@@ -198,6 +201,10 @@ public class MissionController {
             mission.setStatus(3);
 
         }
+        if(!StringUtils.isEmpty(mission.getStatusDesc()) && "审核未通过".equals(mission.getStatusDesc()) ){
+            mission.setStatus(4);
+
+        }
         if(!StringUtils.isEmpty(mission.getLockDesc()) && "锁定".equals(mission.getLockDesc())){
             mission.setLocking(1);
 
@@ -235,6 +242,9 @@ public class MissionController {
                 }
                 if(x.getStatus() == 3){
                     x.setStatusDesc("待审核");
+                }
+                if(x.getStatus() == 4){
+                    x.setStatusDesc("审核未通过");
                 }
                 //是否可接转换
                 if(x.getLocking() == 1){

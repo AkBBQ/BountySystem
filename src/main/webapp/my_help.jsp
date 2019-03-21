@@ -114,13 +114,24 @@
                 <td>${items.content}</td>
                 <td>${items.pidName}</td>
                 <td class="td-manage">
+                    <c:if test="${'未完成' eq items.statusDesc}">
+
                     <a title="完成" onclick="member_finish(this,'${items.id}')" href="javascript:;">
-                    <button class="layui-btn layui-btn-normal layui-btn-xs">完成</button>
-                </a>
+                        <button class="layui-btn layui-btn-normal layui-btn-xs">完成</button>
+                    </a>
+                    </c:if>
+
+                    <c:if test="${'未完成' eq items.statusDesc or '审核未通过' eq items.statusDesc}">
                     <a title="放弃" onclick="member_abandon(this,'${items.id}')" href="javascript:;">
                         <button class="layui-btn layui-btn-danger layui-btn-xs">放弃</button>
                     </a>
+                    </c:if>
 
+                    <c:if test="${'已完成' eq items.statusDesc or '审核未通过' eq items.statusDesc}">
+                        <a title="查看评价"  onclick="x_admin_show('编辑','../deal/evaluate?id=${items.id}')" href="javascript:;">
+                            <button>查看评价</button>
+                        </a>
+                    </c:if>
 
                 </td>
         </tr>

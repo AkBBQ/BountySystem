@@ -39,4 +39,9 @@ public interface DealMissionService {
      * 任务发起人审核任务
      */
     void approval(DealMission dealMission);
+
+    /**
+     * 根据任务id查一条记录（任务评价和评星）
+     */
+    DealMission queryOne(DealMission dealMission);
 }

@@ -1,6 +1,10 @@
 package com.shop.controller;
 
+import com.shop.model.DealMission;
+import com.shop.model.Mission;
 import com.shop.model.Users;
+import com.shop.service.DealMissionService;
+import com.shop.service.MissionService;
 import com.shop.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +22,12 @@ public class UsersController {
 
     @Autowired
     UsersService usersService;
+
+    @Autowired
+    MissionService missionService;
+
+    @Autowired
+    DealMissionService dealMissionService;
 
     /**
      * 登录操作
@@ -39,6 +49,35 @@ public class UsersController {
             //把登陆成功的用户信息放在session中，session有效期为一天
             session.setAttribute("userinfo", users2);
             session.setMaxInactiveInterval(60 * 60 * 60 * 24);
+
+            //查询任务系统中的可接任务数量
+            Mission all = new Mission();
+            all.setLocking(2);
+            Integer countAll = missionService.count(all);
+            //是当前登陆者发布的任务数量
+            Mission me = new Mission();
+            me.setLocking(2);
+            me.setPid(users2.getId());
+            Integer countMe = missionService.count(me);
+            if(countAll - countMe >= 0){
+                //统计可以接去的任务
+                session.setAttribute("canTake", countAll - countMe);
+            }
+                //统计我发布的求助数量
+                session.setAttribute("mySearchHelp", countMe);
+
+            //统计等待我审核的任务数量
+            Mission mm = new Mission();
+            mm.setPid(users2.getId());
+            mm.setStatus(3);
+            Integer waitMeApproval = missionService.count(mm);
+            session.setAttribute("waitMeApproval", waitMeApproval);
+
+            //我接收的任务数量
+            DealMission myCompleted = new DealMission();
+            myCompleted.setAid(users2.getId());
+            Integer myAccept = dealMissionService.count(myCompleted);
+            session.setAttribute("myAccept",myAccept);
         }
             return flag;
     }
