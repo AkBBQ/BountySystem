@@ -306,9 +306,9 @@ public class MissionController {
      * 删除任务
      */
     @RequestMapping("/delete")
-    public String delete(Integer id){
-        Assert.notNull(id);
-        missionService.delete(id);
+    public String delete(Integer mid){
+        Assert.notNull(mid,"根据主键删除的id不能为空！");
+        missionService.delete(mid);
         return "/mission/queryMyMission";
     }
 

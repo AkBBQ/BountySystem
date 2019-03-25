@@ -81,7 +81,7 @@ pageEncoding="UTF-8" %>
   </div>
   <xblock>
 
-    <button class="layui-btn" onclick="x_admin_show('发布需求','../mission_add.html')"><i class="layui-icon"></i>发布求助
+    <button class="layui-btn" onclick="x_admin_show('发布需求','../mission_add.jsp')"><i class="layui-icon"></i>发布求助
     </button>
     <span class="x-right" style="line-height:40px">共有数据：${count} 条 </span>
   </xblock>
@@ -139,7 +139,7 @@ pageEncoding="UTF-8" %>
               <i class="layui-icon">&#xe642;</i>
             </a>
 
-          <a title="删除"  onclick="member_del('删除','../mission/delete?id=${items.id}')" href="../mission/delete?id=${items.id}">
+          <a title="删除"  onclick="member_del('删除','../mission/delete?mid=${items.id}')" href="../mission/delete?mid=${items.id}">
           <i class="layui-icon">&#xe640;</i>
         </a>
           <c:if test="${'待审核' eq items.statusDesc}">

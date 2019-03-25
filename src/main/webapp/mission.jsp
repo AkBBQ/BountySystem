@@ -81,7 +81,7 @@
     </div>
     <xblock>
 
-        <button class="layui-btn" onclick="x_admin_show('发布需求','../mission_add.html')"><i class="layui-icon"></i>发布求助
+        <button class="layui-btn" onclick="x_admin_show('发布需求','../mission_add.jsp')"><i class="layui-icon"></i>发布求助
         </button>
         <span class="x-right" style="line-height:40px">共有数据：${count} 条 </span>
     </xblock>
