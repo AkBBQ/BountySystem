@@ -7,7 +7,7 @@
         <result column="pid" jdbcType="INTEGER" property="pid"/>
         <result column="aid" jdbcType="INTEGER" property="aid"/>
         <result column="star" jdbcType="INTEGER" property="star"/>
-        <result column="star_desc" jdbcType="VARCHAR" property="starDesc"/>
+        <result column="starDesc" jdbcType="VARCHAR" property="starDesc"/>
         <result column="take_time" jdbcType="DATE" property="takeTime"/>
         <result column="end_time" jdbcType="DATE" property="endTime"/>
     </resultMap>
@@ -41,7 +41,7 @@
             </if>
 
             <if test="starDesc != null and starDesc !=''">
-                star_desc = #{starDesc},
+                starDesc = #{starDesc},
             </if>
 
             <if test="endTime != null and endTime !=''">

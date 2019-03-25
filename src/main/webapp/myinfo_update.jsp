@@ -84,7 +84,6 @@
                 success: function (result) {
                     if (result) {
                        alert("修改成功");
-                        window.location.href = "/login.html";
                     }else {
                         alert("修改失败")
                     }

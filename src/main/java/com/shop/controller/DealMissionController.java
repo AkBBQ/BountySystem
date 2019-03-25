@@ -128,7 +128,7 @@ public class DealMissionController {
         //更新任务表中的任务状态
         missionService.updateMission(mission);
 
-        return "./query";
+        return "mission/queryMyMission";
     }
 
     /**
