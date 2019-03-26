@@ -44,6 +44,14 @@
               <div class="layui-input-inline">
                   <select id="type" name="type">
                    <option value="${Mission.type}" selected="selected">${Mission.typeDesc}</option>
+                      <option value="0">代拿外卖</option>
+                      <option value="1">代拿快递</option>
+                      <option value="2">组队学习</option>
+                      <option value="3">游戏开黑</option>
+                      <option value="4">情感咨询</option>
+                      <option value="5">就业指导</option>
+                      <option value="6">技能培训</option>
+                      <option value="7">寻找真爱</option>
                   </select>
               </div>
           </div>
@@ -116,24 +124,24 @@
       });
   </script>
 
-  <script>
-      $('#type').click(function () {
-          $.ajax({
-              url:"/mission/missionTypeQuery",
-              type:"get",
-              success: function(result){
+  <%--<script>--%>
+      <%--$('#type').click(function () {--%>
+          <%--$.ajax({--%>
+              <%--url:"/mission/missionTypeQuery",--%>
+              <%--type:"get",--%>
+              <%--success: function(result){--%>
 
-                  var data = eval(result)
-                  var nameOpt = "<option value='' selected='selected'>--请选择--</option>";
-                  for(var k in data) {
-                      nameOpt+="<option value='"+k+"'>"+data[k]+"</option>";
-                  }
-                  $('#type').html(nameOpt);
-              },
-              error: function(){}
-          });
-      })
-  </script>
+                  <%--var data = eval(result)--%>
+                  <%--var nameOpt = "<option value='' selected='selected'>--请选择--</option>";--%>
+                  <%--for(var k in data) {--%>
+                      <%--nameOpt+="<option value='"+k+"'>"+data[k]+"</option>";--%>
+                  <%--}--%>
+                  <%--$('#type').html(nameOpt);--%>
+              <%--},--%>
+              <%--error: function(){}--%>
+          <%--});--%>
+      <%--})--%>
+  <%--</script>--%>
   </body>
 
 </html>

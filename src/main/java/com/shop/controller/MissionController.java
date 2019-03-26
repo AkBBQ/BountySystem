@@ -25,12 +25,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * All rights Reserved, Designed By www.maihaoche.com
+ * 任务处理类
  *
- * @Package com.shop.controller
- * @author: angtai（angtai@maihaoche.com）
- * @date: 2019/3/10 10:29 PM
- * @Copyright: 2017-2020 www.maihaoche.com Inc. All rights reserved.
  */
 @RequestMapping("/mission")
 @Controller
