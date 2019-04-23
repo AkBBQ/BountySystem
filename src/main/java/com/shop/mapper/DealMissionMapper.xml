@@ -57,6 +57,6 @@
     </select>
 
     <select id="queryRank" resultType="DealMission">
-        SELECT aid,count(aid) num FROM deal_mission GROUP BY aid
+        SELECT aid,count(aid) num FROM deal_mission GROUP BY aid  ORDER BY count(aid) desc
     </select>
 </mapper>
