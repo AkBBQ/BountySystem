@@ -1,6 +1,7 @@
 package com.shop.service;
 
 import com.shop.Do.MissionVo;
+import com.shop.Do.RankVO;
 import com.shop.model.DealMission;
 
 import javax.servlet.http.HttpSession;
@@ -44,4 +45,9 @@ public interface DealMissionService {
      * 根据任务id查一条记录（任务评价和评星）
      */
     DealMission queryOne(DealMission dealMission);
+
+    /**
+     * 任务完成排行榜
+     */
+   List<RankVO> queryRank();
 }

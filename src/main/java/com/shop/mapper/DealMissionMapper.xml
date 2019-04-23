@@ -55,4 +55,8 @@
         select * from deal_mission
         where mid = #{mid}
     </select>
+
+    <select id="queryRank" resultType="DealMission">
+        SELECT aid,count(aid) num FROM deal_mission GROUP BY aid
+    </select>
 </mapper>

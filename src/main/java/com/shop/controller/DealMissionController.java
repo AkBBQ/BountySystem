@@ -143,4 +143,13 @@ public class DealMissionController {
         return "evaluate.jsp";
 
     }
+
+    /**
+     *
+     */
+    @RequestMapping("/queryRank")
+    public String queryRank(Model model){
+       model.addAttribute("People",dealMissionService.queryRank());
+       return "rank.jsp";
+    }
 }

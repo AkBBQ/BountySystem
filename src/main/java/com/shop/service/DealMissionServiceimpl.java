@@ -1,6 +1,7 @@
 package com.shop.service;
 
 import com.shop.Do.MissionVo;
+import com.shop.Do.RankVO;
 import com.shop.Eunm.MissionTypeEunm;
 import com.shop.mapper.DealMissionMapper;
 import com.shop.model.DealMission;
@@ -187,5 +188,19 @@ public class DealMissionServiceimpl implements DealMissionService {
     @Override
     public DealMission queryOne(DealMission dealMission) {
         return dealMissionMapper.queryOne(dealMission.getMid());
+    }
+
+    @Override
+    public List<RankVO> queryRank() {
+        List<RankVO> result = new ArrayList<>();
+        List<DealMission> dealMissions = dealMissionMapper.queryRank();
+        dealMissions.forEach(x->{
+            RankVO rankVO = new RankVO();
+            rankVO.setId(x.getAid());
+            rankVO.setNum(x.getNum());
+            rankVO.setName(usersService.queryOneuser(x.getAid()).getName());
+            result.add(rankVO);
+        });
+        return result;
     }
 }

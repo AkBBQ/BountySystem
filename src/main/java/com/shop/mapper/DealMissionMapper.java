@@ -35,4 +35,9 @@ public interface DealMissionMapper {
      * 根据任务id找任务
      */
     DealMission queryOne(Integer mid);
+
+    /**
+     * 任务完成排行榜
+     */
+    List<DealMission> queryRank();
 }

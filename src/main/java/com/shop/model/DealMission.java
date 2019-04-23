@@ -26,6 +26,10 @@ public class DealMission {
      */
     public int aid;
     /**
+     * 任务接收数量
+     */
+    private Integer num;
+    /**
      * 任务评分
      */
     public int star;
