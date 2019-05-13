@@ -182,18 +182,20 @@
                 type : "post",
                 url : "../deal/pick",
                 data :{mid:mid,pid:pid},
-                success:function(){
+                success:function(data){
+                  if("ok" === data){
 
+                      layer.msg('已抢到该任务!', {icon: 1, time: 1000});
+                      document.getElementById("reflash").click();
+                  }else{
+                      layer.msg("来晚啦，该任务已经被抢了！")
+                  }
                 },
                 error:function () {
-
+                    layer.msg('抢单失败!', {icon: 1, time: 1000});
+                    document.getElementById("reflash").click();
                 }
             })
-
-
-
-            layer.msg('已抢到该任务!', {icon: 1, time: 1000});
-            document.getElementById("reflash").click();
         });
     }
 </script>

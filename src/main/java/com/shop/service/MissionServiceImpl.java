@@ -24,6 +24,17 @@ public class MissionServiceImpl implements MissionService {
 	}
 
 	@Override
+	public Mission queryOne(Integer id) {
+		Mission mission = null;
+		try {
+			 mission = missionMapper.queryOneMission(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mission;
+	}
+
+	@Override
 	public Integer count(Mission mission) {
 		return missionMapper.count(mission);
 	}

@@ -51,6 +51,10 @@
         LIMIT #{offset},#{pagesize}
     </select>
 
+    <select id="queryOneMission"  parameterType="integer" resultMap="BaseResultMap" >
+       select * from mission where id = #{id}
+   </select>
+
     <select id="count" parameterType="Mission" resultType="integer">
         select count(1) from mission
         <where>

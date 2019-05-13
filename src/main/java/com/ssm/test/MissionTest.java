@@ -52,4 +52,10 @@ public class MissionTest {
             System.out.println(x.toString());
         });
     }
+
+    @Test
+    public void queryOneMission(){
+        Mission mission = missionMapper.queryOneMission(11);
+        System.out.println(mission.toString());
+    }
 }
