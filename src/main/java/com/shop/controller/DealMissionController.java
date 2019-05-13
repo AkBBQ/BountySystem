@@ -2,6 +2,7 @@ package com.shop.controller;
 
 
 import com.shop.Do.MissionVo;
+import com.shop.Eunm.MissionTypeEunm;
 import com.shop.model.DealMission;
 import com.shop.model.Mission;
 import com.shop.service.DealMissionService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 接任务处理类
@@ -35,8 +37,15 @@ public class DealMissionController {
      */
     @ResponseBody
     @RequestMapping("pick")
-    public void pickOneMission(DealMission dealMission, HttpSession httpSession){
+    public String pickOneMission(DealMission dealMission, HttpSession httpSession){
+        //抢单之前先查询该订单是否可接（是否为1）
+        Mission mission = missionService.queryOne(dealMission.getMid());
+        if(Objects.nonNull(mission) && mission.getStatus() == 1){
         dealMissionService.addOneDealMission(dealMission,httpSession);
+        return "ok";
+        }else{
+           return "err";
+        }
     }
 
     /**

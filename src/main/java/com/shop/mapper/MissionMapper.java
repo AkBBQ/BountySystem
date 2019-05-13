@@ -12,6 +12,11 @@ public interface MissionMapper {
    */
   List<Mission> queryAllMissions(Mission mission);
 
+    /**
+     *  查找一条任务
+     */
+  Mission queryOneMission(Integer id);
+
   /**
    *多条件查询任务列表对应的统计数量
    */
